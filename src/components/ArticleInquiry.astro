@@ -1,0 +1,12 @@
+---
+interface Props {intent:'oem'|'wholesale'|'sample'}
+const {intent}=Astro.props;
+const oem=intent==='oem';
+const wholesale=intent==='wholesale';
+const href=oem?'/quote/?type=oem':wholesale?'/quote/?type=wholesale':'/wholesale/samples/';
+---
+<aside class="article-inquiry" aria-label="この記事に関連する法人相談">
+  <div><p class="eyebrow">{oem?'FROM PLAN TO PRODUCTION':'CHECK BEFORE YOU SOURCE'}</p><h2>{oem?'商品企画を、具体的な仕様へ。':wholesale?'仕入れ条件を、同じ基準で比較する。':'候補の素材を、実物で確認する。'}</h2><p>{oem?'用途・希望サイズ・デザイン・数量の目安をお知らせください。未定の項目も相談できます。':wholesale?'候補品番・数量・納入先から、包装と見積の範囲を整理します。':'候補品番と使用場所から、サンプル・仕様の確認を進められます。'}</p></div>
+  <div class="button-row"><a class="button" href={href}>{oem?'OEM・PBの要件を相談':wholesale?'卸売・仕入れの条件を相談':'サンプルについて相談'}<span aria-hidden="true">→</span></a><a class="text-link" href={oem?'/oem/':wholesale?'/wholesale/':'/designs/'}>{oem?'OEMの対応・入稿条件':wholesale?'包装・仕入れの確認項目':'デザインから品番を探す'}</a></div>
+  <small>費用・対応範囲・発送時期は、品番とご相談内容に応じて確認します。</small>
+</aside>

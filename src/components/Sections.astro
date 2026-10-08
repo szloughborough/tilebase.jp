@@ -1,0 +1,17 @@
+---
+import type { Section } from '../data/pages';
+import type { EditorialImage } from '../data/editorial-images';
+interface Props { sections:Section[]; visuals?:EditorialImage[] }
+const { sections,visuals=[] }=Astro.props;
+---
+<div class="content-sections">
+  {sections.map((section,i)=><section class="content-section" id={`section-${i+1}`}>
+    <h2>{section.title}</h2>
+    <div class="section-body">
+      {section.text&&<p>{section.text}</p>}
+      {i===1&&visuals.length>0&&<div class="editorial-comparison">{visuals.map(v=><figure><img src={v.src} alt={v.alt} width="720" height="720" loading="lazy" /><figcaption>{v.caption}</figcaption></figure>)}</div>}
+      {section.bullets&&<ul class="check-list">{section.bullets.map(b=><li>{b}</li>)}</ul>}
+      {section.columns&&section.rows&&<div class="table-scroll" tabindex="0" role="region" aria-label={`${section.title}の表`}><table><caption class="sr-only">{section.title}</caption><thead><tr>{section.columns.map(c=><th scope="col">{c}</th>)}</tr></thead><tbody>{section.rows.map(row=><tr>{row.map((cell,j)=>j===0?<th scope="row">{cell}</th>:<td>{cell}</td>)}</tr>)}</tbody></table></div>}
+    </div>
+  </section>)}
+</div>

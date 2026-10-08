@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import { articleVisuals } from '../../data/editorial-images';
+import { articles } from '../../data/articles';
+---
+<Base title="製品選び・施工・調達の解説記事" description="タイルシールとフロアタイルの基本、施工方式、OEM、輸入仕入れを法人向けに整理したTilebaseの解説記事。">
+  <div class="container breadcrumb"><a href="/">ホーム</a><span>/</span><a href="/resources/">導入ガイド</a><span>/</span><span>解説記事</span></div>
+  <section class="container page-hero"><p class="eyebrow">MATERIAL JOURNAL</p><h1>素材を知る。<br />調達を考える。</h1><p class="page-intro">製品選び、施工方式、OEM・仕入れ。<br />法人の商品企画に役立つ確認事項を整理。</p><div class="journal-topics"><a href="/products/floor-tiles/">フロア製品を見る</a><a href="/products/wall-tiles/">ウォール製品を見る</a><a href="/resources/">調達チェックリスト</a></div></section>
+  <section class="container article-grid">{articles.map((article,i)=><a class="article-card" href={`/blog/${article.slug}/`}><img class="article-cover" src={articleVisuals[i].cover.src} alt={articleVisuals[i].cover.alt} width="1200" height="800" loading="lazy" /><div class="article-label"><span>{article.category}</span><span>{String(i+1).padStart(2,'0')}</span></div><h2>{article.title}</h2><p>{article.summary}</p><span class="text-link">記事を読む</span></a>)}</section>
+</Base>

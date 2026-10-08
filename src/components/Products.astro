@@ -1,0 +1,54 @@
+---
+import { products, familyLabels } from '../data/site';
+interface Props { family?:'wall'|'floor'|'all'; limit?:number; filters?:boolean; featured?:boolean; ids?:string[] }
+const {family='all',limit,filters=false,featured=false,ids}=Astro.props;
+const selected=products.filter((p,i)=>(family==='all'||p.family===family)&&(!featured||[0,2,6,8].includes(i))&&(!ids||ids.includes(p.id))).slice(0,limit);
+---
+<div class="catalog" data-catalog>
+  {filters&&<div class="catalog-toolbar"><div class="filter-buttons" role="group" aria-label="製品カテゴリーで絞り込む"><button class="filter active" data-filter="all" aria-pressed="true">すべて</button><button class="filter" data-filter="wall" aria-pressed="false">ウォール</button><button class="filter" data-filter="floor" aria-pressed="false">フロア</button></div><span class="catalog-count"><span data-count>{selected.length}</span> designs</span></div>}
+  {filters&&<label class="catalog-search">品番・デザイン名で検索<input type="search" data-catalog-search placeholder="例：TB-F-025、グリーン" /></label>}
+  <div class="product-grid">
+    {selected.map(p=><article class="product-card" data-family={p.family}>
+      <button class="product-image" data-open-product={p.id} aria-label={`${p.name}の詳細を見る`}><img src={p.image} alt={`${p.name}の${familyLabels[p.family]}デザイン`} width="720" height="720" loading="lazy" /><span class="image-label">{p.family==='wall'?'WALL':'FLOOR'}</span><span class="image-open" aria-hidden="true">＋</span></button>
+      <div class="product-meta"><span class="product-code">{p.id}</span><span>{p.style}</span></div><h3>{p.name}</h3>
+      <a class="text-link" href={`/wholesale/samples/?model=${p.id}`}>この品番を相談</a>
+      <dialog id={`product-${p.id}`} class="product-dialog" aria-labelledby={`title-${p.id}`}>
+        <button class="dialog-close" data-close-dialog aria-label="閉じる">×</button>
+        <div class="dialog-grid"><div class="product-gallery"><img data-gallery-main src={p.image} alt={`${p.name}の製品画像`} width="720" height="720" loading="lazy" />{p.gallery.length>1&&<div class="gallery-thumbs" role="group" aria-label="製品画像を切り替える">{p.gallery.map((src,i)=><button data-gallery-src={src} data-gallery-alt={`${p.name} ${i===0?'製品画像':`使用イメージ ${i}`}`} aria-label={i===0?'製品画像':`使用イメージ ${i}`} aria-pressed={i===0?'true':'false'}><img src={src} alt="" width="100" height="100" loading="lazy" /></button>)}</div>}</div><div><p class="eyebrow">{familyLabels[p.family]} / {p.id}</p><h2 id={`title-${p.id}`}>{p.name}</h2><p>{p.description}</p><dl class="product-detail"><div><dt>柄</dt><dd>{p.style}</dd></div><div><dt>色のイメージ</dt><dd>{p.color}</dd></div></dl><p class="muted">画像はデザイン確認用です。色・質感は実物で、寸法・材質・供給条件は品番ごとにご確認ください。</p><div class="button-row"><a class="button" href={`/wholesale/samples/?model=${p.id}`}>サンプルを相談</a><a class="button button-outline" href={`/quote/?model=${p.id}`}>見積を相談</a></div></div></div>
+      </dialog>
+    </article>)}
+  </div>
+  {filters&&<div class="catalog-pagination"><p data-page-status aria-live="polite"></p><button class="button button-outline" data-load-more hidden>さらに24件を見る</button></div>}
+  <p class="catalog-note">掲載画像はデザインの参考です。現在の供給可否、仕様、価格は品番ごとに確認します。</p>
+</div>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-catalog]').forEach(catalog=>{
+    const cards=Array.from(catalog.querySelectorAll<HTMLElement>('.product-card'));
+    const search=catalog.querySelector<HTMLInputElement>('[data-catalog-search]');
+    const more=catalog.querySelector<HTMLButtonElement>('[data-load-more]');
+    let filter='all',visible=24;
+    const update=()=>{
+      const query=search?.value.trim().toLowerCase()||'';
+      const matches=cards.filter(card=>(filter==='all'||card.dataset.family===filter)&&(!query||card.textContent?.toLowerCase().includes(query)));
+      cards.forEach(card=>card.hidden=!matches.slice(0,more?visible:cards.length).includes(card));
+      const count=catalog.querySelector('[data-count]');if(count)count.textContent=String(matches.length);
+      const status=catalog.querySelector('[data-page-status]');if(status)status.textContent=`${matches.length}件中 ${Math.min(visible,matches.length)}件を表示`;
+      if(more)more.hidden=visible>=matches.length;
+    };
+    catalog.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach(button=>button.addEventListener('click',()=>{
+      filter=button.dataset.filter||'all';visible=24;
+      catalog.querySelectorAll<HTMLButtonElement>('[data-filter]').forEach(b=>{b.classList.toggle('active',b===button);b.setAttribute('aria-pressed',String(b===button));});update();
+    }));
+    search?.addEventListener('input',()=>{visible=24;update();});
+    more?.addEventListener('click',()=>{visible+=24;update();});update();
+    catalog.querySelectorAll<HTMLButtonElement>('[data-open-product]').forEach(button=>button.addEventListener('click',()=>{document.querySelector<HTMLDialogElement>(`#product-${button.dataset.openProduct}`)?.showModal();}));
+  });
+  document.querySelectorAll<HTMLDialogElement>('.product-dialog').forEach(dialog=>{
+    dialog.querySelectorAll<HTMLButtonElement>('[data-gallery-src]').forEach(button=>button.addEventListener('click',()=>{
+      const image=dialog.querySelector<HTMLImageElement>('[data-gallery-main]');if(image){image.src=button.dataset.gallerySrc||'';image.alt=button.dataset.galleryAlt||'';}
+      dialog.querySelectorAll('[data-gallery-src]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+    }));
+    dialog.querySelector('[data-close-dialog]')?.addEventListener('click',()=>dialog.close());
+    dialog.addEventListener('click',event=>{if(event.target===dialog){const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();}});
+  });
+</script>

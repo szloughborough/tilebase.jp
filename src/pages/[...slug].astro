@@ -1,0 +1,31 @@
+---
+import { collectionVisuals, articleVisuals } from '../data/editorial-images';
+import { articles } from '../data/articles';
+import Base from '../layouts/Base.astro';
+import Sections from '../components/Sections.astro';
+import Products from '../components/Products.astro';
+import InquiryForm from '../components/InquiryForm.astro';
+import { pages, type Page } from '../data/pages';
+export function getStaticPaths(){return pages.map(page=>({params:{slug:page.slug},props:{page}}));}
+interface Props{page:Page}
+const {page}=Astro.props;
+const collectionVisual=collectionVisuals[page.slug];
+const heroImage=page.image||collectionVisual?.src;
+const parents=page.slug.split('/');
+const parent=parents.length>1?pages.find(p=>p.slug===parents.slice(0,-1).join('/')):undefined;
+const breadcrumbs={'@context':'https://schema.org','@type':'BreadcrumbList',itemListElement:[{ '@type':'ListItem',position:1,name:'ホーム',item:new URL('/',Astro.site).href },...(parent?[{'@type':'ListItem',position:2,name:parent.title,item:new URL(`/${parent.slug}/`,Astro.site).href}]:[]),{'@type':'ListItem',position:parent?3:2,name:page.title,item:new URL(`/${page.slug}/`,Astro.site).href}]};
+---
+<Base title={page.title} description={page.description} noindex={page.noindex}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)} />
+  <div class="container breadcrumb"><a href="/">ホーム</a>{parent&&<><span>/</span><a href={`/${parent.slug}/`}>{parent.eyebrow==='WALL COLLECTION'?'ウォールタイル':parent.eyebrow==='FLOOR COLLECTION'?'フロアタイル':parent.title}</a></>}<span>/</span><span aria-current="page">{page.eyebrow}</span></div>
+  <section class:list={['container page-hero',{'with-image':!!heroImage}]}><div><p class="eyebrow">{page.eyebrow}</p><h1>{page.title}</h1><p class="page-intro">{page.intro}</p>{!page.form&&<div class="button-row"><a class="button" href="/wholesale/samples/">サンプル相談</a><a class="button button-outline" href="/quote/">見積相談</a></div>}</div>{heroImage&&<figure><img src={heroImage} alt={collectionVisual?.alt||`${page.title}の展示イメージ`} width="1000" height="1000" fetchpriority="high" /><figcaption>デザインの展示イメージ。使用条件は品番ごとに確認。</figcaption></figure>}</section>
+  <div class="container page-body">
+    {page.family&&<section class="catalog-section"><div class="section-heading"><h2>デザインラインアップ</h2><span class="muted">品番を選んで、詳細を見る</span></div><Products family={page.family} filters={page.family==='all'} ids={page.productIds} /></section>}
+    {page.slug==='resources'&&<section class="resource-articles"><div class="section-heading"><h2>テーマから読む</h2><a class="text-link" href="/blog/">すべての記事</a></div><div class="article-grid">{articles.filter((_,i)=>[0,2,5,7].includes(i)).map(a=><a class="article-card" href={`/blog/${a.slug}/`}><img class="article-cover" src={articleVisuals[articles.indexOf(a)].cover.src} alt={articleVisuals[articles.indexOf(a)].cover.alt} width="1200" height="800" loading="lazy" /><div class="article-label"><span>{a.category}</span></div><h3>{a.title}</h3><p>{a.summary}</p><span class="text-link">記事を読む</span></a>)}</div></section>}
+    <Sections sections={page.sections} />
+    {page.faq&&<section class="faq-section"><h2>よくある確認事項</h2>{page.faq.map(([q,a])=><details><summary>{q}</summary><p>{a}</p></details>)}</section>}
+    {page.form&&<InquiryForm type={page.form} />}
+    <section class="related-section"><p class="eyebrow">NEXT STEP</p><h2>あわせて確認する</h2><div class="related-links">{page.links.map(([href,label])=><a href={href}>{label}<span aria-hidden="true">＋</span></a>)}</div></section>
+  </div>
+</Base>
+

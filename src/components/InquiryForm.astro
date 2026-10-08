@@ -1,0 +1,37 @@
+---
+import { products, site } from '../data/site';
+interface Props { type:'sample'|'quote'|'general' }
+const {type}=Astro.props;
+const preview=site.stage!=='production';
+---
+<section class="inquiry-section" id="inquiry">
+  <div class="form-intro"><p class="eyebrow">{type==='sample'?'SAMPLE INQUIRY':type==='quote'?'BUSINESS INQUIRY':'GET IN TOUCH'}</p><h2>{type==='sample'?'サンプルのご相談':type==='quote'?'見積・企画のご相談':'お問い合わせ'}</h2><p>まずは製品と用途をお知らせください。数量や仕様が未定の場合も記入できます。</p>{preview&&<p class="form-preview">確認用サイトのため、入力内容は送信されません。下書きをファイルで保存できます。</p>}</div>
+  <form class="inquiry-form" data-type={type} data-preview={String(preview)} data-turnstile-key={site.turnstile}>
+    <input name="websiteTrap" tabindex="-1" autocomplete="off" class="honeypot" aria-hidden="true" />
+    <div class="form-grid">
+      <label>会社名 <span class="required">必須</span><input name="company" autocomplete="organization" maxlength="160" required placeholder="株式会社〇〇" /></label>
+      <label>ご担当者名 <span class="required">必須</span><input name="contactName" autocomplete="name" maxlength="100" required /></label>
+      <label class="wide">メールアドレス <span class="required">必須</span><input name="email" type="email" autocomplete="email" maxlength="254" required placeholder="name@company.jp" /></label>
+      <label>ご相談の種類 <span class="required">必須</span><select name="inquiryType" required><option value="sample" selected={type==='sample'}>サンプル</option><option value="quote" selected={type==='quote'}>法人見積</option><option value="oem">OEM・PB</option><option value="wholesale">卸売・仕入れ</option><option value="general" selected={type==='general'}>その他</option></select></label>
+      <label>製品カテゴリー <span class="required">必須</span><select name="productCategory" required><option value="">選択してください</option><option value="wall">ウォールタイル</option><option value="floor">フロアタイル</option><option value="both">両方</option><option value="undecided">未定・相談したい</option></select></label>
+      <label>気になる品番 <span class="optional">任意</span><select name="modelId"><option value="">未定・記入欄で相談</option>{products.map(p=><option value={p.id}>{p.id}　{p.name}</option>)}</select></label>
+      <label class="wide">用途・ご相談内容 <span class="required">必須</span><textarea name="message" rows="5" maxlength="4000" minlength="5" required placeholder="用途、設置場所、希望する仕様などをご記入ください。"></textarea></label>
+    </div>
+    <details class="inquiry-options"><summary>数量・包装などの追加条件を入力（任意）</summary><p>未定の場合は、空欄のままご相談いただけます。</p><div class="form-grid">
+      <label>予定数量 <span class="optional">任意</span><input name="quantity" maxlength="100" placeholder="例：未定／500セット程度" /></label>
+      <label>販売チャネル <span class="optional">任意</span><select name="channel"><option value="">選択してください</option><option>EC・Marketplace</option><option>商社・卸売</option><option>小売・ホームセンター</option><option>PB・ブランド</option><option>施工・リフォーム</option><option>その他</option></select></label>
+      <label>必要時期 <span class="optional">任意</span><input name="targetDate" maxlength="100" placeholder="例：来年春／未定" /></label>
+      <label class="wide">包装のご希望 <span class="optional">任意</span><input name="packaging" maxlength="300" placeholder="例：中性包装／ブランド包装を相談" /></label>
+</div></details>
+    <label class="consent"><input type="checkbox" name="privacyAccepted" required /> <span><a href="/privacy/" target="_blank" rel="noopener">プライバシーのご案内</a>を確認しました。</span></label>
+    {!preview&&<div id="turnstile-widget"></div>}
+    <div class="form-submit"><button class="button" type="submit">{preview?'お問い合わせの下書きを保存':'相談内容を送信する'}</button><p>{preview?'端末に保存します。外部への送信はありません。':'送信後に発注や契約が成立するものではありません。'}</p></div>
+    <div class="form-status" role="status" aria-live="polite" hidden></div>
+    <noscript><p>フォームにはJavaScriptが必要です。{!preview&&site.email?<a href={`mailto:${site.email}`}>メールでお問い合わせください。</a>:'確認用サイトでは入力内容の送信は行っていません。'}</p></noscript>
+  </form>
+</section>
+<script>
+  import { setupInquiryForm } from '../scripts/inquiry';
+  setupInquiryForm();
+</script>
+

@@ -1,0 +1,68 @@
+---
+import { navigation, site } from '../data/site';
+import '../styles/global.css';
+interface Props { title:string; description:string; noindex?:boolean; article?:boolean; image?:string }
+const { title, description, noindex=false, article=false, image='/images/tb-f-046-gallery-1.webp' } = Astro.props;
+const pathname=Astro.url.pathname;
+const canonical=new URL(pathname,site.origin).href;
+const preview=site.stage!=='production';
+const schema={ '@context':'https://schema.org','@graph':[
+  { '@type':'Organization','@id':`${site.origin}/#organization`,name:'Tilebase',legalName:site.company,url:site.origin,logo:new URL('/logo.svg',site.origin).href },
+  { '@type':article?'Article':'WebPage',name:title,description,url:canonical,inLanguage:'ja',...(article?{ headline:title,image:[new URL(image,site.origin).href],mainEntityOfPage:canonical,author:{'@type':'Organization',name:'Tilebase 編集チーム'},publisher:{'@id':`${site.origin}/#organization`}}:{}) },
+]};
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} | Tilebase</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content={preview||noindex?'noindex, nofollow':'index, follow'} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#344b61" />
+    <meta property="og:title" content={`${title} | Tilebase`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={article?'article':'website'} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image,site.origin).href} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g,'\u003c')} />
+  </head>
+  <body data-stage={site.stage}>
+    <a class="skip" href="#main">本文へ移動</a>
+    {preview&&<div class="preview-notice"><span>PREVIEW</span> 公開前の確認用サイトです。お問い合わせは下書きとして保存できます。</div>}
+    <header class="header">
+      <div class="header-inner">
+        <a href="/" class="brand" aria-label="Tilebase ホーム"><img src="/logo.svg" alt="tilebase.jp" width="290" height="58" /></a>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="main-navigation">メニュー <span aria-hidden="true">☰</span></button>
+        <nav id="main-navigation" aria-label="メインナビゲーション">
+          {navigation.map(n=><a href={n.href} class:list={{ active:pathname.startsWith(n.href)&&n.href!=='/' }}>{n.label}</a>)}
+        </nav>
+        <div class="header-actions"><a class="button button-outline compact" href="/wholesale/samples/">サンプル相談</a><a class="button compact" href="/quote/">見積相談</a></div>
+      </div>
+    </header>
+    <main id="main"><slot /></main>
+    <section class="closing-cta">
+      <div class="container cta-inner"><div><p class="eyebrow">LET'S FIND YOUR MATERIAL</p><h2>商品選定の、次の一歩へ。</h2><p>用途や販売チャネル、気になるデザインからご相談ください。</p></div><div class="button-row"><a class="button button-light" href="/wholesale/samples/">実物について相談</a><a class="button button-ghost" href="/quote/">法人見積を相談</a></div></div>
+    </section>
+    <footer>
+      <div class="container footer-grid">
+        <div class="footer-brand"><a href="/" class="brand"><img src="/logo.svg" alt="tilebase.jp" width="290" height="58" /></a><p>WALL & FLOOR MATERIALS<br />FOR YOUR BUSINESS</p><small>{site.company}</small><address class="company-address">{site.address}</address></div>
+        <div><h3>製品を探す</h3><a href="/products/wall-tiles/">ウォールタイル</a><a href="/products/floor-tiles/">フロアタイル</a><a href="/designs/">デザイン一覧</a><a href="/specifications/">製品仕様</a></div>
+        <div><h3>法人のお客様</h3><a href="/oem/">OEM・PB</a><a href="/wholesale/">卸売・仕入れ</a><a href="/wholesale/samples/">サンプル相談</a><a href="/wholesale/moq/">MOQ</a><a href="/wholesale/lead-time/">納期</a></div>
+        <div><h3>Tilebaseについて</h3><a href="/company/">運営会社</a><a href="/quality-control/">品質・試験資料</a><a href="/manufacturing/">供給体制</a><a href="/blog/">ブログ・解説記事</a><a href="/resources/">導入チェックリスト</a><a href="/contact/">お問い合わせ</a></div>
+      </div>
+      <div class="container footer-bottom"><small>© {new Date().getFullYear()} Tilebase</small><div><a href="/privacy/">プライバシー</a><a href="/terms/">利用案内</a><a href="/cookie-policy/">Cookie</a></div><span class="footer-market">JAPAN MARKET / B2B</span></div>
+    </footer>
+    <script>
+      const toggle=document.querySelector<HTMLButtonElement>('.menu-toggle');
+      const nav=document.querySelector<HTMLElement>('#main-navigation');
+      toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));nav?.classList.toggle('is-open',open);});
+      document.addEventListener('keydown',event=>{if(event.key==='Escape'){toggle?.setAttribute('aria-expanded','false');nav?.classList.remove('is-open');}});
+    </script>
+  </body>
+</html>
+

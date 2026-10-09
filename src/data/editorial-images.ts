@@ -22,3 +22,4 @@ export const collectionVisuals:Record<string,EditorialImage>={
  'solutions/distributors':scene('TB-F-051','用途に合わせたフロアの商品選定'),
  'solutions/private-label-brands':scene('TB-F-028','ブランドのシリーズ企画'),
 };
+articleVisuals.push(articleVisuals[0],articleVisuals[6],articleVisuals[1]);

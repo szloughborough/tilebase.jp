@@ -1,3 +1,4 @@
+import additionalArticles from './additional-articles.json';
 import { deepArticles } from './deep-articles';
 import type { Section } from './pages';
 export type Article = { slug:string; title:string; description:string; category:string; summary:string; sections:Section[]; links:[string,string][]; keyword?:string; faq?:[string,string][] };
@@ -13,4 +14,13 @@ export const articles: Article[] = [
 ];
 
 for(const article of articles){const expanded=deepArticles[article.slug];if(expanded)Object.assign(article,expanded);}
+
+
+articles.push(...additionalArticles as Article[]);
+const backlinks:Record<string,[string,string][]>= {
+'product-selection/what-is-floor-tile':[['/blog/product-selection/floor-tile-20-vs-30/','20cmと30cmの選び方']],
+'sourcing-oem/floor-tile-oem-process':[['/blog/sourcing-oem/ai-cmyk-artwork-guide/','AI・CMYK入稿の準備']],
+'sourcing-oem/how-to-evaluate-floor-tile-suppliers':[['/blog/sourcing-oem/tile-sample-evaluation/','サンプル評価の7項目']]
+};
+for(const article of articles)article.links.push(...(backlinks[article.slug]||[]));
 

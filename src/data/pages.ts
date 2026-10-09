@@ -42,3 +42,6 @@ floorCollection?.links.unshift(['/products/floor-tiles/wood-look/','木目調の
 for (const page of pages) page.sections.push(...(specificationUpdates[page.slug] || []));
 
 
+
+for(const page of pages){if(['products/floor-tiles','specifications'].includes(page.slug))page.links.push(['/blog/product-selection/floor-tile-20-vs-30/','サイズと仕入れ単位の比較']);if(['oem','oem/japanese-packaging'].includes(page.slug))page.links.push(['/blog/sourcing-oem/ai-cmyk-artwork-guide/','AI・CMYK入稿の準備']);if(['wholesale/samples','resources'].includes(page.slug))page.links.push(['/blog/sourcing-oem/tile-sample-evaluation/','サンプル評価の7項目']);}
+

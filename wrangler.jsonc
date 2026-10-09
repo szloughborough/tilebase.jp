@@ -7,5 +7,12 @@
     "SITE_STAGE": "preview",
     "SITE_URL": "https://tilebase.jp"
   },
-  "d1_databases": []
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tilebase-inquiries",
+      "database_id": "fc76e290-1756-4fff-a7cc-43f8aef01b98",
+      "migrations_dir": "migrations"
+    }
+  ]
 }

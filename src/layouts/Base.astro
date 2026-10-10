@@ -1,6 +1,7 @@
 ---
 import { navigation, site } from '../data/site';
 import '../styles/global.css';
+import Analytics from '../components/Analytics.astro';
 interface Props { title:string; description:string; noindex?:boolean; article?:boolean; image?:string }
 const { title, description, noindex=false, article=false, image='/images/tb-f-046-gallery-1.webp' } = Astro.props;
 const pathname=Astro.url.pathname;
@@ -14,7 +15,7 @@ const schema={ '@context':'https://schema.org','@graph':[
 <!doctype html>
 <html lang="ja">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8" /><meta name="google-site-verification" content="HG14VRT3GJtoccpIQ83uF1ANCrS22JwgXn12iEqH8Vc" /><meta name="msvalidate.01" content="DBDA9C5B702CB4727F1CFE5872FFA081" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} | Tilebase</title>
     <meta name="description" content={description} />
@@ -63,6 +64,7 @@ const schema={ '@context':'https://schema.org','@graph':[
       toggle?.addEventListener('click',()=>{const open=toggle.getAttribute('aria-expanded')!=='true';toggle.setAttribute('aria-expanded',String(open));nav?.classList.toggle('is-open',open);});
       document.addEventListener('keydown',event=>{if(event.key==='Escape'){toggle?.setAttribute('aria-expanded','false');nav?.classList.remove('is-open');}});
     </script>
-  </body>
+  <Analytics /></body>
 </html>
+
 

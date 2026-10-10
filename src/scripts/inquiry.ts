@@ -12,7 +12,7 @@ export function setupInquiryForm() {
  const status=form.querySelector<HTMLElement>('.form-status')!;
  const button=form.querySelector<HTMLButtonElement>('button[type=submit]')!;
  let submissionId=crypto.randomUUID();let token='';let widget='';let started=false;
- const event=(name:string)=>{window.dataLayer?.push({event:name,inquiry_type:inquiry.value});};
+ const event=(name:string)=>{window.dispatchEvent(new CustomEvent('tilebase:analytics',{detail:{name,inquiry_type:inquiry.value}}));};
  form.addEventListener('focusin',()=>{if(!started){started=true;event(inquiry.value==='sample'?'sample_request_start':'quote_request_start');}});
  const show=(text:string,error=false)=>{status.hidden=false;status.textContent=text;status.classList.toggle('error',error);};
  if(!preview&&form.dataset.turnstileKey){
@@ -39,3 +39,4 @@ export function setupInquiryForm() {
    finally{button.disabled=false;button.textContent='相談内容を送信する';token='';if(widget)window.turnstile?.reset(widget);}
  });
 }
+

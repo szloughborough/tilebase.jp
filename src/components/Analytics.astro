@@ -1,0 +1,10 @@
+---
+import { site } from '../data/site';
+const enabled=site.stage==='production';
+---
+<button class="analytics-settings" data-analytics-settings hidden={!enabled}>Cookie設定</button>
+<section class="analytics-consent" data-analytics-consent data-enabled={String(enabled)} hidden aria-label="アクセス解析の選択"><p>アクセス解析について</p><span>同意いただいた場合に、Google AnalyticsとMicrosoft Clarityでページ利用状況を分析します。お問い合わせの入力内容は計測対象から除外します。</span><a href="/cookie-policy/">詳細を確認</a><div><button class="button button-outline" data-analytics-reject>許可しない</button><button class="button" data-analytics-accept>解析を許可する</button></div></section>
+<script>
+import {setupAnalytics} from '../scripts/analytics';
+setupAnalytics();
+</script>

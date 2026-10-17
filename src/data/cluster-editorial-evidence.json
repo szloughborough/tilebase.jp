@@ -1,6 +1,100 @@
 [
-{"slug":"installation-comparison/how-to-install-tile-stickers","sources":[["https://diy-tile.com/user_data/howto","DIY TILE：製品固有の貼り方と接続方法の例"]],"diagram":{"src":"/images/journal-installation.svg","alt":"下地確認、準備と仮配置、小面積評価、施工記録の順に確認する模式図","caption":"貼り付け前から完了までの確認順序。対象品番の施工説明を優先します。"}},
-{"slug":"technical/how-to-remove-tile-stickers","sources":[["https://www.dreamsticker.jp/note/mosaic-tile-qa/","Dream Sticker：下地と剥離時の影響に関する製品Q&A"]],"diagram":{"src":"/images/journal-removal.svg","alt":"品番と下地、小範囲での確認、糊残りと損傷の判断、相談と記録の模式図","caption":"取り外し前に確認する判断順序。加熱や薬剤の一律使用を示す図ではありません。"}},
-{"slug":"technical/tile-sticker-water-heat-conditions","sources":[["https://www.dreamsticker.jp/note/mosaic-tile-qa/","Dream Sticker：粘着、下地と使用条件を確認する製品Q&A"]],"diagram":{"src":"/images/journal-water-heat.svg","alt":"表面、端と接続部、粘着と下地、熱と書類を分けて確認する模式図","caption":"防水・耐熱表示の確認範囲。試験結果や性能を示す図ではありません。"}},
-{"slug":"installation-comparison/floor-tile-vs-cushion-floor","sources":[["https://www.sangetsu.co.jp/style/floor_choose02.html","サンゲツ：ビニル床シート・ビニル床タイルの特徴"]],"diagram":{"src":"/images/journal-floor-comparison.svg","alt":"片状床材とシート状床材の形状の比較と、固定方式を別に確認する模式図","caption":"形状と施工方式は別の比較軸です。クッションフロアの取扱いを示すものではありません。"}}
+  {
+    "slug": "installation-comparison/how-to-install-tile-stickers",
+    "sources": [
+      [
+        "https://diy-tile.com/user_data/howto",
+        "DIY TILE：製品固有の貼り方と接続方法の例"
+      ]
+    ],
+    "diagram": {
+      "src": "/images/journal-installation.svg",
+      "alt": "下地確認、準備と仮配置、小面積評価、施工記録の順に確認する模式図",
+      "caption": "貼り付け前から完了までの確認順序。対象品番の施工説明を優先します。"
+    }
+  },
+  {
+    "slug": "technical/how-to-remove-tile-stickers",
+    "sources": [
+      [
+        "https://www.dreamsticker.jp/note/mosaic-tile-qa/",
+        "Dream Sticker：下地と剥離時の影響に関する製品Q&A"
+      ]
+    ],
+    "diagram": {
+      "src": "/images/journal-removal.svg",
+      "alt": "品番と下地、小範囲での確認、糊残りと損傷の判断、相談と記録の模式図",
+      "caption": "取り外し前に確認する判断順序。加熱や薬剤の一律使用を示す図ではありません。"
+    }
+  },
+  {
+    "slug": "technical/tile-sticker-water-heat-conditions",
+    "sources": [
+      [
+        "https://www.dreamsticker.jp/note/mosaic-tile-qa/",
+        "Dream Sticker：粘着、下地と使用条件を確認する製品Q&A"
+      ]
+    ],
+    "diagram": {
+      "src": "/images/journal-water-heat.svg",
+      "alt": "表面、端と接続部、粘着と下地、熱と書類を分けて確認する模式図",
+      "caption": "防水・耐熱表示の確認範囲。試験結果や性能を示す図ではありません。"
+    }
+  },
+  {
+    "slug": "installation-comparison/floor-tile-vs-cushion-floor",
+    "sources": [
+      [
+        "https://www.sangetsu.co.jp/style/floor_choose02.html",
+        "サンゲツ：ビニル床シート・ビニル床タイルの特徴"
+      ]
+    ],
+    "diagram": {
+      "src": "/images/journal-floor-comparison.svg",
+      "alt": "片状床材とシート状床材の形状の比較と、固定方式を別に確認する模式図",
+      "caption": "形状と施工方式は別の比較軸です。クッションフロアの取扱いを示すものではありません。"
+    }
+  },
+  {
+    "slug": "sourcing-oem/tile-rfq-comparison-guide",
+    "sources": [
+      [
+        "https://swantile.jp/estimate/",
+        "スワンタイル：見積依頼で数量や色を伝える公式フォーム"
+      ]
+    ],
+    "diagram": {
+      "src": "/images/journal-rfq.svg",
+      "alt": "仕様を固定し、数量単位と費用範囲をそろえ、見積版を照合する四段階の図",
+      "caption": "見積依頼から比較までの確認順序。価格や取引条件を保証する図ではありません。"
+    }
+  },
+  {
+    "slug": "sourcing-oem/floor-tile-sku-assortment-planning",
+    "sources": [
+      [
+        "https://glamstyle-b2b.jp/products/c/floortile/",
+        "グラムスタイル公式BtoB：品番・サイズ・セット別の商品表示例"
+      ]
+    ],
+    "diagram": {
+      "src": "/images/journal-sku.svg",
+      "alt": "販売先、商品構成、初回計画、実績検証の四段階でSKUを検討する図",
+      "caption": "初回の品揃えを検証するための編集部作成フレーム。推奨SKU数や販売予測ではありません。"
+    }
+  },
+  {
+    "slug": "sourcing-oem/pb-tile-repeat-order-version-control",
+    "sources": [
+      [
+        "https://contents.sangetsu.co.jp/digital_book/floortile23/book/pageindices/index119.html",
+        "サンゲツ公式見本帳：光の加減と色の見え方に関する個別製品の注意事項"
+      ]
+    ],
+    "diagram": {
+      "src": "/images/journal-repeat-order.svg",
+      "alt": "前回資料、変更確認、受入照合、履歴更新をつなぐ追加発注の管理図",
+      "caption": "追加発注で照合する情報の関係。色差の許容値や同一仕様を保証する図ではありません。"
+    }
+  }
 ]

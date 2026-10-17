@@ -314,6 +314,10 @@
           [
             "/blog/sourcing-oem/import-purchasing-checklist/",
             "輸入仕入れの書類・総コストを整理する"
+          ],
+          [
+            "/blog/sourcing-oem/floor-tile-sku-assortment-planning/",
+            "初回のSKU・品揃えと在庫計画"
           ]
         ]
       },
@@ -366,6 +370,10 @@
           [
             "/blog/product-selection/floor-tile-20-vs-30/",
             "サイズ別の材料面積と箱数を比較する"
+          ],
+          [
+            "/blog/sourcing-oem/tile-rfq-comparison-guide/",
+            "見積依頼書の項目と比較方法"
           ]
         ]
       },
@@ -481,6 +489,10 @@
           [
             "/blog/sourcing-oem/tile-sample-evaluation/",
             "承認サンプルを評価する7項目"
+          ],
+          [
+            "/blog/sourcing-oem/pb-tile-repeat-order-version-control/",
+            "追加発注の仕様版・色柄・包装管理"
           ]
         ]
       },

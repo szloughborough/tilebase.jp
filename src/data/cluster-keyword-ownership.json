@@ -41,5 +41,35 @@
     "task": "片状とシート状の形状・構造・販売単位の比較",
     "avoid": "置くだけと粘着式の固定方式比較を主題にしない",
     "parent": "/products/floor-tiles/"
+  },
+  {
+    "url": "/blog/sourcing-oem/tile-rfq-comparison-guide/",
+    "primary": "タイルシール フロアタイル 見積依頼書",
+    "aliases": [
+      "粘着式タイル 見積 比較条件"
+    ],
+    "task": "RFQ条件表と見積費用範囲の比較",
+    "avoid": "卸売総合・供給先評価・MOQの主語を奪わない",
+    "parent": "/wholesale/"
+  },
+  {
+    "url": "/blog/sourcing-oem/floor-tile-sku-assortment-planning/",
+    "primary": "フロアタイル 仕入れ SKU 在庫計画",
+    "aliases": [
+      "フロアタイル EC 初回 品揃え"
+    ],
+    "task": "EC・卸向けの初回SKU構成と検証計画",
+    "avoid": "柄別製品一覧・MOQ・サイズ比較を主題にしない",
+    "parent": "/wholesale/"
+  },
+  {
+    "url": "/blog/sourcing-oem/pb-tile-repeat-order-version-control/",
+    "primary": "タイルシール フロアタイル PB 追加発注 仕様管理",
+    "aliases": [
+      "PB 壁床材 再注文 変更管理"
+    ],
+    "task": "量産後の再発注における版と見本の照合",
+    "avoid": "初回OEM工程・AI入稿・サンプル評価自体と分離",
+    "parent": "/oem/"
   }
 ]

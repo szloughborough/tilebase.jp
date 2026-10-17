@@ -40,3 +40,10 @@ const newLinks:Record<string,[string,string][]>= {
 };
 for(const article of articles){const section=article.sections.at(-1);if(section&&newLinks[article.slug])section.links=[...(section.links||[]),...newLinks[article.slug]];}
 
+
+const b2bLinks:Record<string,[string,string][]>={
+'sourcing-oem/how-to-evaluate-floor-tile-suppliers':[['/blog/sourcing-oem/tile-rfq-comparison-guide/','見積の条件をそろえて比較する']],
+'sourcing-oem/import-purchasing-checklist':[['/blog/sourcing-oem/floor-tile-sku-assortment-planning/','初回仕入れのSKUと在庫計画を整理する']],
+'sourcing-oem/floor-tile-oem-process':[['/blog/sourcing-oem/pb-tile-repeat-order-version-control/','量産後の追加発注と変更管理を確認する']]
+};
+for(const a of articles){const s=a.sections.at(-1);if(s&&b2bLinks[a.slug])s.links=[...(s.links||[]),...b2bLinks[a.slug]];}

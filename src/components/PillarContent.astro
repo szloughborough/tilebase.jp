@@ -1,0 +1,18 @@
+---
+import Products from './Products.astro';
+import type {Pillar} from '../data/pillar-structure';
+interface Props{pillar:Pillar}
+const {pillar}=Astro.props;
+---
+<div class="pillar-content" data-pillar={pillar.slug}>
+  <nav class="pillar-toc" aria-label="このページの選定・調達ガイド"><p class="eyebrow">FIND YOUR NEXT STEP</p><ol>{pillar.sections.map((section,i)=><li><a href={`#pillar-section-${i+1}`}><span aria-hidden="true">{String(i+1).padStart(2,'0')}</span>{section.title}</a></li>)}</ol></nav>
+  {pillar.sections.map((section,i)=><section class="pillar-section" id={`pillar-section-${i+1}`}>
+    <header><span class="eyebrow" aria-hidden="true">{String(i+1).padStart(2,'0')}</span><h2>{section.title}</h2></header>
+    <div class="pillar-section-body"><p>{section.text}</p>
+      {section.columns&&section.rows&&<div class="table-scroll" tabindex="0" role="region" aria-label={`${section.title}の比較表`}><table><caption class="sr-only">{section.title}</caption><thead><tr>{section.columns.map(c=><th scope="col">{c}</th>)}</tr></thead><tbody>{section.rows.map(row=><tr>{row.map((cell,j)=>j===0?<th scope="row">{cell}</th>:<td>{cell}</td>)}</tr>)}</tbody></table></div>}
+      {section.catalog&&pillar.family&&<Products family={pillar.family} limit={12}/>}
+      <ul class="pillar-reading">{section.links.map(([href,label])=><li><a href={href}>{label}<span aria-hidden="true"> →</span></a></li>)}</ul>
+    </div>
+  </section>)}
+  <aside class="pillar-cta"><p class="eyebrow">{pillar.family?'SAMPLE & SPECIFICATION':'BUSINESS INQUIRY'}</p><h2>{pillar.family?'品番と使用条件から、次の確認へ。':'検討している条件をお知らせください。'}</h2><p>未定の項目もご相談いただけます。費用・供給可否・日程は、品番と案件ごとに確認します。</p><a class="button" href={pillar.cta[0]}>{pillar.cta[1]}<span aria-hidden="true">→</span></a></aside>
+</div>

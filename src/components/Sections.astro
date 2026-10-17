@@ -12,6 +12,8 @@ const { sections,visuals=[] }=Astro.props;
       {i===1&&visuals.length>0&&<div class="editorial-comparison">{visuals.map(v=><figure><img src={v.src} alt={v.alt} width="720" height="720" loading="lazy" /><figcaption>{v.caption}</figcaption></figure>)}</div>}
       {section.bullets&&<ul class="check-list">{section.bullets.map(b=><li>{b}</li>)}</ul>}
       {section.columns&&section.rows&&<div class="table-scroll" tabindex="0" role="region" aria-label={`${section.title}の表`}><table><caption class="sr-only">{section.title}</caption><thead><tr>{section.columns.map(c=><th scope="col">{c}</th>)}</tr></thead><tbody>{section.rows.map(row=><tr>{row.map((cell,j)=>j===0?<th scope="row">{cell}</th>:<td>{cell}</td>)}</tr>)}</tbody></table></div>}
+      {section.links&&<ul class="pillar-reading">{section.links.map(([href,label])=><li><a href={href}>{label}<span aria-hidden="true"> →</span></a></li>)}</ul>}
     </div>
   </section>)}
 </div>
+

@@ -8,8 +8,8 @@ export const site = {
   turnstile: import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '',
 };
 export const navigation = [
-  { label: '製品', href: '/products/' },
-  { label: '用途・市場', href: '/solutions/ecommerce-sellers/' },
+  { label: 'タイルシール', href: '/products/wall-tiles/' },
+  { label: 'フロアタイル', href: '/products/floor-tiles/' },
   { label: 'OEM・PB', href: '/oem/' },
   { label: '法人・仕入れ', href: '/wholesale/' },
   { label: '品質・仕様', href: '/specifications/' },
@@ -34,3 +34,4 @@ const catalog: [string, 'wall'|'floor', string, string, string, string][] = [
 ];
 export const products: Product[] = [...catalog.map(([id,family,name,style,color,description]) => ({ id,family,name,style,color,description,image:`/images/${id.toLowerCase()}-main.webp`,scene:`/images/${id.toLowerCase()}-scene.webp` })),...expanded].map(p=>({...p,family:p.family as 'wall'|'floor',gallery:(galleries as Record<string,string[]>)[p.id]||[p.image]}));
 export const familyLabels = { wall: 'ウォールタイル', floor: 'フロアタイル' };
+

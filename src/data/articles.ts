@@ -1,3 +1,4 @@
+import {topicOwner} from './pillar-structure';
 import additionalArticles from './additional-articles.json';
 import { deepArticles } from './deep-articles';
 import type { Section } from './pages';
@@ -23,4 +24,7 @@ const backlinks:Record<string,[string,string][]>= {
 'sourcing-oem/how-to-evaluate-floor-tile-suppliers':[['/blog/sourcing-oem/tile-sample-evaluation/','サンプル評価の7項目']]
 };
 for(const article of articles)article.links.push(...(backlinks[article.slug]||[]));
+
+
+for(const article of articles){const owner=topicOwner('blog/'+article.slug);const section=article.sections.at(-1);if(owner&&section)section.links=[...(section.links||[]),['/'+owner.slug+'/',owner.label+'の製品・調達条件を確認する']];}
 

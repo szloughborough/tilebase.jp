@@ -1,0 +1,7 @@
+---
+import {topicOwner} from '../data/pillar-structure';
+interface Props{slug:string}
+const {slug}=Astro.props;
+const owner=topicOwner(slug);
+---
+{owner&&<aside class="topic-parent" aria-label="関連する製品・調達案内" data-topic-owner={owner.slug}><p>このテーマの製品・調達案内</p><a href={`/${owner.slug}/`}>{owner.title}<span aria-hidden="true"> →</span></a></aside>}

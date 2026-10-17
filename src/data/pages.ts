@@ -1,5 +1,6 @@
+import { pillarForSlug, topicOwner } from './pillar-structure';
 import { specificationUpdates } from './specification-updates';
-export type Section = { title: string; text?: string; bullets?: string[]; columns?: string[]; rows?: string[][] };
+export type Section = { title: string; text?: string; bullets?: string[]; columns?: string[]; rows?: string[][]; links?:[string,string][] };
 export type Page = { slug: string; title: string; eyebrow: string; description: string; intro: string; sections: Section[]; links: [string,string][]; family?: 'wall'|'floor'|'all'; productIds?:string[]; image?: string; form?: 'sample'|'quote'|'general'; faq?: [string,string][]; noindex?: boolean };
 const sample: [string,string] = ['/wholesale/samples/','サンプルについて相談'];
 const quote: [string,string] = ['/quote/','法人見積を相談'];
@@ -47,4 +48,10 @@ for(const page of pages){if(['products/floor-tiles','specifications'].includes(p
 
 
 const cookies=pages.find(p=>p.slug==='cookie-policy');if(cookies)cookies.sections=[{title:'アクセス解析の選択',text:'正式公開版では、同意いただいた場合にGoogle Analytics 4とMicrosoft Clarityを読み込みます。広告目的の同意は付与しません。現在のプレビューでは解析を実行しません。'},{title:'解析する情報',text:'ページ利用状況と問い合わせ開始・受付成功のイベントを計測します。担当者名、メールアドレス、相談本文はイベントに含めず、フォームはClarityのマスク対象にします。GoogleタグのページURLはクエリを除外します。GoogleとMicrosoftのサービスへ解析データが送信されるため、利用規約とプライバシー情報も確認してください。'},{title:'設定の保存と変更',text:'同意の選択と日時を端末に180日間保存します。ページ左下のCookie設定から変更できます。拒否の場合は解析タグを読み込みません。許可後の拒否は同意を取り消して再読み込みします。既に送信したデータを削除する操作ではありません。'},{title:'プレビューの下書き',text:'確認用サイトの問い合わせは端末に下書きとして保存でき、実際には送信されません。'}];const privacy=pages.find(p=>p.slug==='privacy');if(privacy){const section=privacy.sections.find(s=>s.title==='分析と第三者への提供');if(section)section.text='正式公開版では、同意した場合にGoogle Analytics 4とMicrosoft Clarityで利用状況を分析します。現在のプレビューでは解析を実行しません。問い合わせ本文や連絡先を解析イベントへ送信しません。Cookie設定の案内で選択・変更方法を確認してください。正式な問い合わせ受付前に保存期間、処理事業者と連絡窓口を確定します。';}
+
+
+for(const page of pages){const pillar=pillarForSlug(page.slug);if(pillar){page.title=pillar.title;page.description=pillar.description;page.intro=pillar.intro;}}
+
+
+for(const page of pages){const owner=topicOwner(page.slug);const section=page.sections.at(-1);if(owner&&section)section.links=[...(section.links||[]),['/'+owner.slug+'/',owner.label+'の製品・調達条件をまとめて確認する']];}
 

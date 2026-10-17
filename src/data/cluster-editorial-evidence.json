@@ -1,0 +1,6 @@
+[
+{"slug":"installation-comparison/how-to-install-tile-stickers","sources":[["https://diy-tile.com/user_data/howto","DIY TILE：製品固有の貼り方と接続方法の例"]],"diagram":{"src":"/images/journal-installation.svg","alt":"下地確認、準備と仮配置、小面積評価、施工記録の順に確認する模式図","caption":"貼り付け前から完了までの確認順序。対象品番の施工説明を優先します。"}},
+{"slug":"technical/how-to-remove-tile-stickers","sources":[["https://www.dreamsticker.jp/note/mosaic-tile-qa/","Dream Sticker：下地と剥離時の影響に関する製品Q&A"]],"diagram":{"src":"/images/journal-removal.svg","alt":"品番と下地、小範囲での確認、糊残りと損傷の判断、相談と記録の模式図","caption":"取り外し前に確認する判断順序。加熱や薬剤の一律使用を示す図ではありません。"}},
+{"slug":"technical/tile-sticker-water-heat-conditions","sources":[["https://www.dreamsticker.jp/note/mosaic-tile-qa/","Dream Sticker：粘着、下地と使用条件を確認する製品Q&A"]],"diagram":{"src":"/images/journal-water-heat.svg","alt":"表面、端と接続部、粘着と下地、熱と書類を分けて確認する模式図","caption":"防水・耐熱表示の確認範囲。試験結果や性能を示す図ではありません。"}},
+{"slug":"installation-comparison/floor-tile-vs-cushion-floor","sources":[["https://www.sangetsu.co.jp/style/floor_choose02.html","サンゲツ：ビニル床シート・ビニル床タイルの特徴"]],"diagram":{"src":"/images/journal-floor-comparison.svg","alt":"片状床材とシート状床材の形状の比較と、固定方式を別に確認する模式図","caption":"形状と施工方式は別の比較軸です。クッションフロアの取扱いを示すものではありません。"}}
+]

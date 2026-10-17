@@ -1,8 +1,10 @@
+import plannedClusters from './planned-cluster-articles.json';
+import clusterEvidence from './cluster-editorial-evidence.json';
 import {topicOwner} from './pillar-structure';
 import additionalArticles from './additional-articles.json';
 import { deepArticles } from './deep-articles';
 import type { Section } from './pages';
-export type Article = { slug:string; title:string; description:string; category:string; summary:string; sections:Section[]; links:[string,string][]; keyword?:string; faq?:[string,string][] };
+export type Article = { slug:string; title:string; description:string; category:string; summary:string; sections:Section[]; links:[string,string][]; keyword?:string; sources?:[string,string][]; diagram?:{src:string;alt:string;caption:string}; faq?:[string,string][] };
 export const articles: Article[] = [
  { slug:'product-selection/what-is-floor-tile',title:'フロアタイルとは？素材・施工方式と仕入れ前の選び方',description:'フロアタイルの素材、施工方式、用途と仕様の違いを整理。法人仕入れで確認したい項目を紹介します。',category:'製品選び',summary:'フロアタイルは、片状の床材を指す商品カテゴリーです。名称だけでは材質や施工方式は決まりません。仕入れでは、層構造と固定方式を分けて確認しましょう。',sections:[{title:'素材と施工方式は別の分類',text:'素材は表面や基材の構造を表し、施工方式は下地への固定方法を表します。同じ柄でも、材質、厚み、粘着の仕様が異なる場合があります。「フロアタイル」という名前からPVC製や賃貸対応と判断しないことが重要です。'},{title:'仕様書で比較する項目',columns:['項目','確認すること'],rows:[['構造','各層の材料と役割'],['固定','粘着式、別途接着、置くだけ等の区別'],['寸法','実寸、厚み、公差'],['使用環境','室内外、歩行量、水、温度'],['供給','包装単位と追加発注条件']]},{title:'用途を決めてから選ぶ',text:'住居の室内と、土足で人が多く通る店舗では必要な条件が異なります。耐摩耗や防滑といった表示は、試験方法と対象品番を一緒に確認してください。単語だけで用途の適合性を判断しないでください。'},{title:'サンプルの確認',text:'複数枚を並べて柄のつながりを見て、実際の下地で試験施工します。写真ではわからない表面、厚み、端部、接着を確認し、対象品番の記録を残してください。'},{title:'仕入れの次のステップ',text:'候補品番、用途、販売チャネル、数量の目安を整理すると、サンプルや見積条件の確認を進めやすくなります。'}],links:[['/products/floor-tiles/','フロアタイル製品'],['/blog/installation-comparison/lay-only-vs-peel-and-stick/','施工方式の違い'],['/specifications/','仕様確認'],['/wholesale/samples/','サンプル相談']] },
  { slug:'product-selection/what-is-tile-sticker',title:'タイルシールとは？構造・用途・仕入れ時の確認項目',description:'タイルシールの製品構造と用途、タイルシートとの呼び方の違い、下地と性能の確認項目を整理します。',category:'製品選び',summary:'タイルシールは、タイルのような柄や表面を持つ粘着式の装飾材を指す呼び方です。名称だけで表面材や性能は決まらないため、実際の構造を確認します。',sections:[{title:'呼び方から構造を決めつけない',text:'「タイルシール」「タイルシート」は、市場で近い意味に使われる場合があります。しかし、表面、基材、厚み、粘着が同じとは限りません。名称ではなく、対象品番の仕様を比較してください。'},{title:'層ごとに役割を確認',columns:['部位','確認する項目'],rows:[['表面','光沢、質感、清掃条件、傷への対応'],['印刷・基材','色、寸法、柄の再現'],['粘着','対象下地、施工環境、取り外し条件'],['離型材','施工時の剥がし方と取り扱い']]},{title:'キッチンや水回りの判断',text:'飛沫への対応と、常時水にさらされる環境への対応は同じではありません。また、表面の耐水性だけでは端部や継ぎ目からの侵入を防げるとは限りません。熱源付近は対象品番の使用条件を確認してください。'},{title:'商品説明と実物をそろえる',text:'仕入れではサンプル、仕様書、包装、販売ページの説明を照合します。「完全防水」「どこでも貼れる」といった表現は、必要な根拠と条件がない限り使用しないでください。'},{title:'サンプル評価の記録',text:'設置場所、下地、温度、水、清掃条件を記録し、実際の環境で試験します。採用した品番と仕様を記録することで、追加発注時の確認にも役立ちます。'}],links:[['/products/wall-tiles/','ウォールタイル製品'],['/products/wall-tiles/kitchen/','キッチンの確認事項'],['/quality-control/','品質資料の確認'],['/wholesale/samples/','実物の相談']] },
@@ -18,6 +20,8 @@ for(const article of articles){const expanded=deepArticles[article.slug];if(expa
 
 
 articles.push(...additionalArticles as Article[]);
+articles.push(...plannedClusters as Article[]);
+for(const article of articles){const evidence=clusterEvidence.find(e=>e.slug===article.slug);if(evidence)Object.assign(article,evidence);}
 const backlinks:Record<string,[string,string][]>= {
 'product-selection/what-is-floor-tile':[['/blog/product-selection/floor-tile-20-vs-30/','20cmと30cmの選び方']],
 'sourcing-oem/floor-tile-oem-process':[['/blog/sourcing-oem/ai-cmyk-artwork-guide/','AI・CMYK入稿の準備']],
@@ -27,4 +31,12 @@ for(const article of articles)article.links.push(...(backlinks[article.slug]||[]
 
 
 for(const article of articles){const owner=topicOwner('blog/'+article.slug);const section=article.sections.at(-1);if(owner&&section)section.links=[...(section.links||[]),['/'+owner.slug+'/',owner.label+'の製品・調達条件を確認する']];}
+
+
+const newLinks:Record<string,[string,string][]>= {
+'product-selection/what-is-tile-sticker':[['/blog/installation-comparison/how-to-install-tile-stickers/','貼る前の下地確認と施工の順序']],
+'technical/floor-tile-peeling-causes':[['/blog/installation-comparison/floor-tile-vs-cushion-floor/','床材の形状と構造の違いを整理する']],
+'installation-comparison/lay-only-vs-peel-and-stick':[['/blog/installation-comparison/floor-tile-vs-cushion-floor/','片状床材とクッションフロアの違いを比較する']]
+};
+for(const article of articles){const section=article.sections.at(-1);if(section&&newLinks[article.slug])section.links=[...(section.links||[]),...newLinks[article.slug]];}
 

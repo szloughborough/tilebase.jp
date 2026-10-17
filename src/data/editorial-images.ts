@@ -23,3 +23,10 @@ export const collectionVisuals:Record<string,EditorialImage>={
  'solutions/private-label-brands':scene('TB-F-028','ブランドのシリーズ企画'),
 };
 articleVisuals.push(articleVisuals[0],articleVisuals[6],articleVisuals[1]);
+
+articleVisuals.push(
+ {cover:scene('TB-W-001','壁面の柄合わせを検討するための空間イメージ'),images:[detail('TB-W-001','向きと合わせ目を確認するチェック柄'),detail('TB-W-003','形状と模様を確認するウォールデザイン')]},
+ {cover:scene('TB-W-037','取り外し前に下地を確認する壁面材の使用イメージ'),images:[detail('TB-W-037','対象品番の表面と形状を確認する参考画像'),detail('TB-W-038','構造と粘着は品番別に確認するデザイン候補')]},
+ {cover:scene('TB-W-002','水・熱・清掃条件を別途確認するキッチンの展示イメージ'),images:[detail('TB-W-002','耐水性を画像だけでは判断しない壁面デザイン'),detail('TB-W-001','性能資料と対象品番を照合する参考デザイン')]},
+ {cover:scene('TB-F-039','床材の形状と配列を検討する木目柄の使用イメージ'),images:[detail('TB-F-039','片状の木目柄フロアデザイン'),detail('TB-F-046','同じ片状でも柄と配色が異なる石目調')]}
+);

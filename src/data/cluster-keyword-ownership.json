@@ -1,0 +1,45 @@
+[
+  {
+    "url": "/blog/installation-comparison/how-to-install-tile-stickers/",
+    "primary": "壁面 タイルシール 貼り方",
+    "aliases": [
+      "壁面用タイルシールの貼り方",
+      "キッチン 壁 タイルシール 貼り方"
+    ],
+    "task": "施工前準備・仮配置・試験施工から貼る順序",
+    "avoid": "製品一覧、定義、撤去方法を主題にしない",
+    "parent": "/products/wall-tiles/"
+  },
+  {
+    "url": "/blog/technical/how-to-remove-tile-stickers/",
+    "primary": "タイルシール 剥がし方",
+    "aliases": [
+      "タイルシールの剥がし方",
+      "タイルシール はがし方"
+    ],
+    "task": "既設壁面材の撤去前判断・糊残り・下地影響",
+    "avoid": "地貼りが自然に剥がれる原因や新規施工とは別",
+    "parent": "/products/wall-tiles/"
+  },
+  {
+    "url": "/blog/technical/tile-sticker-water-heat-conditions/",
+    "primary": "タイルシール 防水 耐熱 表示",
+    "aliases": [
+      "タイルシール 耐熱 使用条件",
+      "タイルシール 耐水 確認"
+    ],
+    "task": "水・熱・端部・資料の適用範囲を判断",
+    "avoid": "水と熱で別URLを作らず、厨房製品一覧を複製しない",
+    "parent": "/products/wall-tiles/"
+  },
+  {
+    "url": "/blog/installation-comparison/floor-tile-vs-cushion-floor/",
+    "primary": "フロアタイル クッションフロア 違い",
+    "aliases": [
+      "クッションフロア フロアタイル 違い"
+    ],
+    "task": "片状とシート状の形状・構造・販売単位の比較",
+    "avoid": "置くだけと粘着式の固定方式比較を主題にしない",
+    "parent": "/products/floor-tiles/"
+  }
+]

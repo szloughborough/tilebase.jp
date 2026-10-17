@@ -55,3 +55,6 @@ for(const page of pages){const pillar=pillarForSlug(page.slug);if(pillar){page.t
 
 for(const page of pages){const owner=topicOwner(page.slug);const section=page.sections.at(-1);if(owner&&section)section.links=[...(section.links||[]),['/'+owner.slug+'/',owner.label+'の製品・調達条件をまとめて確認する']];}
 
+
+const kitchenPage=pages.find(p=>p.slug==='products/wall-tiles/kitchen');const kitchenSection=kitchenPage?.sections.at(-1);if(kitchenSection)kitchenSection.links=[...(kitchenSection.links||[]),['/blog/technical/tile-sticker-water-heat-conditions/','防水・耐熱の表示から使用条件を確認する']];
+

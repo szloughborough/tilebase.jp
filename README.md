@@ -102,3 +102,7 @@ POST `/api/inquiries` 在 production 且配置齐全时工作。校验来源、�
 - Gmail 通知仅含受理编号。通过 Cloudflare D1 → `tilebase-inquiries` → Console，用参数或已核对的受理编号查询对应记录。不要把客户资料转抄到通知或导出后长期留存。业务往来邮件和订单档案另行管理。
 - Cloudflare 的灾备恢复机制和第三方服务日志可能有独立保存期限；若恢复 D1，重新启用询盘前应再次运行过期清理。
 - 发布清理任务：先运行 `wrangler d1 migrations apply tilebase-inquiries --remote`，再运行 `wrangler deploy --config wrangler.retention.jsonc`。在 Worker 的 Triggers 检查 Cron，在 Observability 确认 `Inquiry retention cleanup`；日志仅记录删除计数。正式启用后，用合成询盘验证保存、通知和查阅链路。
+
+## 先开放内容收录
+
+正式域名可先发布可收录的产品与文章页面。构建正式域名时传入 `SITE_URL=https://tilebase.jp`、`PUBLIC_SITE_INDEXABLE=true`，此时可保留 `PUBLIC_SITE_STAGE=preview` 和运行时 `SITE_STAGE=preview`；询盘只保存草稿、统计仍关闭。设计预览不要传入收录开关。`pages.dev` 地址由 Cloudflare 响应头添加 `noindex`。

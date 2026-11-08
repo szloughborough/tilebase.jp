@@ -3,6 +3,7 @@ export const site = {
   company: 'Shenzhen Lafubao Trading Co,.Ltd',
   origin: import.meta.env.SITE_URL || 'https://tilebase.jp',
   stage: import.meta.env.PUBLIC_SITE_STAGE || 'preview',
+  indexable: import.meta.env.PUBLIC_SITE_INDEXABLE === 'true' || import.meta.env.PUBLIC_SITE_STAGE === 'production',
   email: import.meta.env.PUBLIC_CONTACT_EMAIL || 'sale@tilebase.jp',
   address: 'Room B021,Fang Da Da Sha,Nanshan District, Shenzhen, Guangdong, PR China',
   turnstile: import.meta.env.PUBLIC_TURNSTILE_SITE_KEY || '',

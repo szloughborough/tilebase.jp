@@ -20,7 +20,7 @@ const schema={ '@context':'https://schema.org','@graph':[
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title} | Tilebase</title>
     <meta name="description" content={description} />
-    <meta name="robots" content={preview||noindex?'noindex, nofollow':'index, follow'} />
+    <meta name="robots" content={!site.indexable||noindex?'noindex, nofollow':'index, follow'} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <meta name="theme-color" content="#344b61" />
@@ -35,7 +35,7 @@ const schema={ '@context':'https://schema.org','@graph':[
   </head>
   <body data-stage={site.stage}>
     <a class="skip" href="#main">本文へ移動</a>
-    {preview&&<div class="preview-notice"><span>PREVIEW</span> 公開前の確認用サイトです。お問い合わせは下書きとして保存できます。</div>}
+    {preview&&<div class="preview-notice">{site.indexable?'オンラインでのお問い合わせは準備中です。':<><span>PREVIEW</span> 公開前の確認用サイトです。お問い合わせは下書きとして保存できます。</>}</div>}
     <header class="header">
       <div class="header-inner">
         <a href="/" class="brand" aria-label="Tilebase ホーム"><img src="/logo.svg" alt="tilebase.jp" width="290" height="58" /></a>

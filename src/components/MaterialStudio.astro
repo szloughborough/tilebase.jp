@@ -1,36 +1,35 @@
 ---
 import { products } from '../data/site';
 const options = [
-  {id:'TB-F-046', title:'石目調フロア', label:'石目調', type:'FLOOR / STONE'},
-  {id:'TB-W-037', title:'壁面用タイルシール', label:'ウォール', type:'WALL / TILE SHEET'},
-  {id:'TB-F-039', title:'木目調フロア', label:'木目調', type:'FLOOR / WOOD'},
+  {id:'TB-F-046', title:'石目調フロア', label:'石目調'},
+  {id:'TB-W-037', title:'壁面用タイルシール', label:'ウォール'},
+  {id:'TB-F-039', title:'木目調フロア', label:'木目調'},
 ].map(item=>({...item, product:products.find(p=>p.id===item.id)!}));
 ---
 <section class="material-hero" aria-labelledby="home-title">
   <div class="container material-stage">
     <div class="material-intro">
-      <p class="material-kicker"><span></span> TILEBASE <span class="material-kicker-slash">/</span> JAPAN B2B</p>
-      <h1 id="home-title">壁と床に、<br />次の定番を。</h1>
-      <p class="material-lead">タイルシール・粘着式フロアタイルの法人調達。デザインの選定から、卸売・OEM・PBのご相談まで。</p>
+      <p class="material-kicker">法人向け製品カタログ</p>
+      <h1 id="home-title">タイルシールと<br />フロアタイル</h1>
+      <p class="material-lead">壁用・床用のデザイン、寸法、梱包仕様をご案内します。卸売・OEM・PBのご相談も承ります。</p>
       <div class="button-row material-actions">
-        <a class="button button-light" href="/designs/">デザインから探す <span aria-hidden="true">↗</span></a>
-        <a class="material-secondary" href="/wholesale/samples/">サンプル相談 <span aria-hidden="true">↗</span></a>
+        <a class="button" href="/designs/">デザイン・品番一覧 <span aria-hidden="true">→</span></a>
+        <a class="material-secondary" href="/wholesale/samples/">サンプル相談</a>
       </div>
-      <div class="material-intro-foot"><span>WALL & FLOOR MATERIALS</span><span>法人向け製品案内</span></div>
+      <div class="material-direct"><a href="/wholesale/">卸売</a><a href="/oem/">OEM・PB</a><a href="/specifications/">製品仕様</a></div>
     </div>
     <div class="material-deck" data-material-deck>
       <div class="material-panels">
         {options.map((item,i)=><figure class="material-panel" id={`material-panel-${i}`} aria-labelledby={`material-tab-${i}`} hidden={i!==0}>
           <img src={item.product.gallery[1] ?? item.product.scene} alt={`${item.title}（${item.id}）の使用イメージ`} width="1200" height="1200" loading={i===0?'eager':'lazy'} fetchpriority={i===0?'high':'auto'} />
           <figcaption class="material-caption">
-            <div><span>{item.type} · {item.id}</span><strong>{item.title}</strong><small>使用イメージ</small></div>
-            <a href={`/wholesale/samples/?model=${item.id}`} aria-label={`${item.id}のサンプルを相談`}>この品番を相談 <span aria-hidden="true">↗</span></a>
+            <div><span>{item.id}</span><strong>{item.title}</strong><small>使用イメージ</small></div>
+            <a href={`/wholesale/samples/?model=${item.id}`} aria-label={`${item.id}のサンプルを相談`}>この品番のサンプル相談 <span aria-hidden="true">→</span></a>
           </figcaption>
         </figure>)}
       </div>
       <div class="material-controls">
-        <div class="material-control-label"><span>MATERIAL SELECTOR</span><strong>素材を切り替える</strong></div>
-        <div class="material-tabs" role="tablist" aria-label="素材を切り替える" hidden>
+        <div class="material-tabs" role="tablist" aria-label="柄見本を選ぶ" hidden>
           {options.map((item,i)=><button type="button" role="tab" id={`material-tab-${i}`} aria-controls={`material-panel-${i}`} aria-selected={i===0} tabindex={i===0?0:-1}><img src={item.product.image} alt="" width="72" height="72" /><span>{item.label}</span></button>)}
         </div>
       </div>

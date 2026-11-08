@@ -3,17 +3,18 @@ import { articleVisuals } from '../data/editorial-images';
 import { articles } from '../data/articles';
 import Base from '../layouts/Base.astro';
 import Products from '../components/Products.astro';
+import MaterialStudio from '../components/MaterialStudio.astro';
 ---
 <Base title="タイルシール・粘着式フロアタイルの法人向け製品案内" description="Tilebaseは日本市場向けのウォール・フロアタイルの製品と調達情報を提供。デザイン選定から仕様確認、サンプル、OEM・PBの相談へ。">
-  <section class="vi-hero"><div class="container vi-hero-inner"><div class="vi-hero-copy"><p class="eyebrow">WALL & FLOOR / FOR YOUR BUSINESS</p><h1>空間をつくる素材で、<br />ビジネスの可能性を広げる。</h1><p class="vi-hero-description">壁と床に、新しい選択を。<br />ウォール・フロアタイルの卸売、OEM・PB、法人調達。</p><div class="button-row"><a href="/products/" class="button">製品一覧 <span aria-hidden="true">→</span></a><a href="/quote/" class="button button-outline">見積について相談 <span aria-hidden="true">→</span></a></div><p class="vi-hero-foot">DESIGN · MATERIAL · SOURCING</p></div><div class="vi-hero-media"><img class="vi-space" src="/images/tb-f-046-gallery-1.webp" alt="ストーン調フロアデザインの室内展示イメージ" width="1200" height="1200" fetchpriority="high" /><div class="vi-materials"><img src="/images/tb-f-039-main.webp" alt="木目柄のデザイン候補" width="720" height="720" /><img src="/images/tb-f-046-main.webp" alt="ストーン調のデザイン候補" width="720" height="720" /><span>FOR<br />BETTER<br />SPACES</span></div><p class="vi-caption">使用イメージ。仕様・適合条件は品番ごとに確認。</p></div></div></section>
-  <section class="container vi-paths" aria-label="法人調達のメニュー">{[
-    ['/products/','製品一覧','ウォール・フロアのデザイン','/images/tb-f-046-main.webp'],
-    ['/oem/','OEM・プライベートブランド','デザインから商品企画へ','/images/tb-w-037-gallery-1.webp'],
-    ['/wholesale/','卸売・法人仕入れ','数量・包装・供給条件を確認','/images/tb-f-051-gallery-1.webp'],
-    ['/wholesale/samples/','サンプル相談','色・質感を実物で確かめる','/images/tb-f-039-main.webp'],
-    ['/specifications/','仕様・資料','寸法・構造・包装を確認','/images/tb-w-003-main.webp'],
-  ].map(([href,title,copy,image])=><a class="vi-path" href={href}><img src={image} alt="" width="720" height="720" loading="lazy" /><div><h2>{title}</h2><p>{copy}</p><span aria-hidden="true">→</span></div></a>)}</section>
-  <div class="intro-strip"><div class="container"><span>素材を選ぶ。</span><span>仕様を確かめる。</span><span>ビジネスにつなげる。</span><a href="/company/">ABOUT TILEBASE</a></div></div>
+  <MaterialStudio />
+  <section class="sourcing-bar" aria-label="法人調達の目的から探す"><div class="container sourcing-grid">
+    <div class="sourcing-label"><p class="eyebrow">FOR BUYERS</p><h2>調達の入口</h2></div>
+    {[
+      ['/wholesale/','卸売・仕入れ','数量・梱包・納期の確認'],
+      ['/oem/','OEM・PB','柄・仕様・ブランド包装'],
+      ['/specifications/','仕様・資料','材質・寸法・使用条件'],
+    ].map(([href,title,copy])=><a href={href}><div><h3>{title}</h3><p>{copy}</p></div><span aria-hidden="true">↗</span></a>)}
+  </div></section>
   <section class="container home-section"><div class="section-heading"><div><p class="eyebrow">OUR MATERIALS</p><h2>壁と床、二つのコレクション。</h2></div><a class="text-link" href="/products/">製品案内を見る</a></div><div class="family-grid"><a class="family-card" href="/products/wall-tiles/"><div class="family-image"><img src="/images/tb-w-037-gallery-1.webp" alt="淡い色のウォールタイル展示イメージ" width="720" height="720" loading="lazy" /></div><div class="family-copy"><div><span class="eyebrow">WALL COLLECTION</span><h3>ウォールタイル</h3><p>色と質感で、壁面に表情を。</p></div><span class="family-icon" aria-hidden="true">＋</span></div></a><a class="family-card" href="/products/floor-tiles/"><div class="family-image"><img src="/images/tb-f-039-gallery-1.webp" alt="木目柄フロアタイル展示イメージ" width="720" height="720" loading="lazy" /></div><div class="family-copy"><div><span class="eyebrow">FLOOR COLLECTION</span><h3>フロアタイル</h3><p>空間の印象を、足元から。</p></div><span class="family-icon" aria-hidden="true">＋</span></div></a></div></section>
   <section class="buyer-section"><div class="container buyer-layout"><div><p class="eyebrow">FOR YOUR BUSINESS</p><h2>販売する場所から、<br />必要な条件を考える。</h2><p>商品を選ぶ視点は、販売チャネルによって変わります。<br />用途とビジネスに合う確認項目を整理しましょう。</p></div><div class="buyer-links"><a href="/solutions/ecommerce-sellers/"><span>EC・Marketplace</span><p>商品画像・説明・包装・補充を検討</p><i aria-hidden="true">＋</i></a><a href="/solutions/distributors/"><span>商社・卸売</span><p>仕様・梱包・輸送・取引条件を比較</p><i aria-hidden="true">＋</i></a><a href="/solutions/private-label-brands/"><span>PB・ブランド</span><p>企画の意図を、継続できる商品仕様へ</p><i aria-hidden="true">＋</i></a></div></div></section>
   <section class="container home-section"><div class="section-heading"><div><p class="eyebrow">DESIGN SELECTION</p><h2>商品企画のヒントになるデザイン。</h2></div><a class="text-link" href="/designs/">すべてのデザインを見る</a></div><Products limit={4} featured /></section>

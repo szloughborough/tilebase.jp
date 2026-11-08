@@ -95,3 +95,10 @@ POST `/api/inquiries` 在 production 且配置齐全时工作。校验来源、�
 ## 正式上线检查
 运行 npm run check:launch。预览版本返回非零退出码是预期行为；它不会修改上线门槛、secret或数据库。不应把配置存在当作真实服务验证通过。详见 DEPLOYMENT_STATUS.md。
 
+
+## 询盘保存期限与查看方式
+
+- 表单受理记录以 UTC 的 `created_at` 为准，保留 30 天。独立 Worker `tilebase-inquiry-retention` 每小时第 17 分钟运行，删除已到期记录；正常运行时，删除最多延后约一个调度间隔。它还清除旧的限流计数，不对外提供 HTTP 端点。
+- Gmail 通知仅含受理编号。通过 Cloudflare D1 → `tilebase-inquiries` → Console，用参数或已核对的受理编号查询对应记录。不要把客户资料转抄到通知或导出后长期留存。业务往来邮件和订单档案另行管理。
+- Cloudflare 的灾备恢复机制和第三方服务日志可能有独立保存期限；若恢复 D1，重新启用询盘前应再次运行过期清理。
+- 发布清理任务：先运行 `wrangler d1 migrations apply tilebase-inquiries --remote`，再运行 `wrangler deploy --config wrangler.retention.jsonc`。在 Worker 的 Triggers 检查 Cron，在 Observability 确认 `Inquiry retention cleanup`；日志仅记录删除计数。正式启用后，用合成询盘验证保存、通知和查阅链路。

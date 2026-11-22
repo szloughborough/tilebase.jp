@@ -1,13 +1,24 @@
-# Deployment status — 2026-10-09
+# Deployment status — 2026-11-22
 
-- GitHub: https://github.com/szloughborough/tilebase.jp (main).
-- Cloudflare Pages: tilebase, selected Szloughborough account; https://tilebase.pages.dev.
-- Legal name: Shenzhen Lafubao Trading Co,.Ltd.
-- 42 HTML pages including 404; 11 Japanese articles, 159 catalog designs, 344 images.
-- D1: tilebase-inquiries, binding DB; migration 0001_inquiries.sql applied remotely. inquiries and inquiry_limits tables verified; zero inquiry records at verification.
-- Site remains preview: noindex, robots Disallow /, no actual visitor submissions.
-- DNS lookup for tilebase.jp returned name does not exist on 2026-10-09. This is DNS evidence, not proof of registration availability.
+The release enables actual inquiry reception on https://tilebase.jp. GitHub main is the source; Cloudflare Pages publication is manual via Wrangler.
 
-Remaining production requirements: domain ownership and DNS, working sale@tilebase.jp mailbox, verified sender/email service, Turnstile, runtime secrets, notification retry schedule, privacy and data-retention decisions, asset rights, commercial terms and product-report applicability. Real mail receipt and search indexing are not verified. Do not set readiness flags automatically.
+## Verified
 
-Current editable deployment checkout is in the temporary tilebase-sync-20261008 directory because the original H: files have Windows ACL write restrictions. GitHub contains the authoritative published source; clone it into a normal writable directory for long-term work. Current synchronization is manual, not an automatic GitHub-to-Pages build integration.
+- Official domain HTTPS and Cloudflare custom-domain status active.
+- Consent-based GA4 on the official host; preview-host analytics excluded. GA4 automatic form interactions disabled so draft or validation actions are not treated as accepted leads.
+- A protected real Turnstile form submission returned an inquiry reference, persisted to D1, and generated a notification. Resend reported delivered to the authorized operator mailbox. Private test evidence is intentionally not in this repository.
+- D1 saves before acknowledging success; notification failure does not discard the inquiry. Source origin, exact Turnstile hostname/action/success, payload size, rate limits and duplicate submission IDs are checked.
+- Form records are retained for 30 days. Existing hourly retention Worker schedule was verified. Notification emails contain a reference only; customer data stays in D1.
+- Temporary verification page, access gate and temporary credential are removed after acceptance.
+
+## Operational limits
+
+- A provider delivered receipt proves acceptance by the recipient mail server, not that the operator read the message or that it avoided the spam folder.
+- The synthetic verification inquiry is not a customer lead. It is marked TEST and follows normal 30-day retention.
+- No CRM interface is included. Review inquiries through the authenticated Cloudflare D1 console; follow up before expiry.
+- The protected retry endpoint exists, but no automatic notification retry scheduler is configured. Check D1 for pending/failed notices when operating the site; mail-service outages do not remove saved inquiries.
+- Product-specific performance reports, final quotes, shipping dates and commercial terms remain subject to SKU-specific verification and agreement.
+
+## Releasing
+
+Use the supported Node runtime, install dependencies, then `npm run build:production`. Supply the public Turnstile site key through the ignored production environment file or the build environment. Runtime secrets remain in Cloudflare. Run tests, Astro check, static audit and launch check before `wrangler pages deploy dist --project-name tilebase --branch main`. Do not reset readiness flags merely to make a failing deployment pass; record new evidence.

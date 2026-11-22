@@ -12,11 +12,13 @@ export function setupInquiryForm() {
  const status=form.querySelector<HTMLElement>('.form-status')!;
  const button=form.querySelector<HTMLButtonElement>('button[type=submit]')!;
  let submissionId=crypto.randomUUID();let token='';let widget='';let started=false;
+ const setToken=(value:string)=>{token=value;button.disabled=!value;};
  const event=(name:string)=>{window.dispatchEvent(new CustomEvent('tilebase:analytics',{detail:{name,inquiry_type:inquiry.value}}));};
  form.addEventListener('focusin',()=>{if(!preview&&!started){started=true;event(inquiry.value==='sample'?'sample_request_start':'quote_request_start');}});
  const show=(text:string,error=false)=>{status.hidden=false;status.textContent=text;status.classList.toggle('error',error);};
  if(!preview&&form.dataset.turnstileKey){
-   window.tilebaseTurnstileReady=()=>{widget=window.turnstile!.render('#turnstile-widget',{sitekey:form.dataset.turnstileKey,action:'inquiry',callback:(value:string)=>token=value,'expired-callback':()=>token='','error-callback':()=>{token='';show('確認を読み込めませんでした。再読み込みしてください。',true);}});};
+   button.disabled=true;
+   window.tilebaseTurnstileReady=()=>{widget=window.turnstile!.render('#turnstile-widget',{sitekey:form.dataset.turnstileKey,action:'inquiry',language:'ja',callback:setToken,'expired-callback':()=>setToken(''),'error-callback':()=>{setToken('');show('確認を読み込めませんでした。再読み込みしてください。',true);}});};
    const script=document.createElement('script');script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?onload=tilebaseTurnstileReady&render=explicit';script.async=true;document.head.append(script);
  }
  form.addEventListener('submit',async e=>{
@@ -36,7 +38,7 @@ export function setupInquiryForm() {
      if(!response.ok)throw new Error(result.message||'送信できませんでした。時間をおいて再度お試しください。');
      show(`ご相談を受け付けました。受付番号：${result.inquiryId}`);event(inquiry.value==='sample'?'sample_request_submit':inquiry.value==='oem'?'oem_inquiry_submit':inquiry.value==='wholesale'?'wholesale_inquiry_submit':'quote_request_submit');form.reset();submissionId=crypto.randomUUID();started=false;
    }catch(error){show(error instanceof Error?error.message:'送信に失敗しました。再度お試しください。',true);}
-   finally{button.disabled=false;button.textContent='相談内容を送信する';token='';if(widget)window.turnstile?.reset(widget);}
+   finally{setToken('');button.textContent='相談内容を送信する';if(widget)window.turnstile?.reset(widget);}
  });
 }
 

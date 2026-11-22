@@ -24,10 +24,10 @@ const preview=site.stage!=='production';
       <label class="wide">包装のご希望 <span class="optional">任意</span><input name="packaging" maxlength="300" placeholder="例：中性包装／ブランド包装を相談" /></label>
 </div></details>
     <label class="consent"><input type="checkbox" name="privacyAccepted" required /> <span><a href="/privacy/" target="_blank" rel="noopener">プライバシーポリシー</a>（フォーム受付記録の保存期間：30日）を確認しました。</span></label>
-    {!preview&&<div id="turnstile-widget"></div>}
+    {!preview&&<><p class="muted" id="inquiry-verification-help">送信前に下の確認を完了してください。アクセス解析への同意は不要です。</p><div id="turnstile-widget" aria-describedby="inquiry-verification-help"></div></>}
     <div class="form-submit"><button class="button" type="submit">{preview?'お問い合わせの下書きを保存':'相談内容を送信する'}</button><p>{preview?'端末に保存します。外部への送信はありません。':'送信後に発注や契約が成立するものではありません。'}</p></div>
     <div class="form-status" role="status" aria-live="polite" hidden></div>
-    <noscript><p>フォームにはJavaScriptが必要です。{!preview&&site.email?<a href={`mailto:${site.email}`}>メールでお問い合わせください。</a>:'確認用サイトでは入力内容の送信は行っていません。'}</p></noscript>
+    <noscript><p>フォームにはJavaScriptが必要です。{preview?'確認用サイトでは入力内容の送信は行っていません。':'ブラウザのJavaScriptを有効にして、ページを再読み込みしてください。'}</p></noscript>
   </form>
 </section>
 <script>

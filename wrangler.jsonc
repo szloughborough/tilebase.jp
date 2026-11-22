@@ -4,7 +4,7 @@
   "pages_build_output_dir": "./dist",
   "compatibility_date": "2026-10-05",
   "vars": {
-    "SITE_STAGE": "preview",
+    "SITE_STAGE": "production",
     "SITE_URL": "https://tilebase.jp"
   },
   "d1_databases": [

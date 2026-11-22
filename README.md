@@ -1,3 +1,7 @@
+# Current release
+
+See DEPLOYMENT_STATUS.md and LAUNCH_EVIDENCE.md for the verified 2026-11-22 release. Use npm run build:production for a real inquiry-enabled release. The older implementation notes below describe the original preview and are historical where they conflict with those documents.
+
 # Tilebase 网站
 
 日文 B2B 墙贴／地贴网站。实际代码与构建文件均位于本目录。

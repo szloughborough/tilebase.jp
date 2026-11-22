@@ -37,7 +37,7 @@ export async function handleInquiry(request,env,context={},dependencies={}){
  if(env.SITE_STAGE!=='production')return error(503,'確認用サイトでは送信を受け付けていません。下書きを保存してください。');
  if(!env.DB||!env.SITE_URL||!env.TURNSTILE_SECRET_KEY||!env.RATE_LIMIT_SALT||!env.RESEND_API_KEY||!env.INQUIRY_EMAIL||!env.FROM_EMAIL)return error(503,'受付の準備中です。時間をおいてご確認ください。');
  let origin;try{origin=new URL(env.SITE_URL).origin;}catch{return error(503,'受付の準備中です。');}
- if(request.headers.get('origin')!==origin)return error(403,'送信元を確認できませんでした。');
+ if(request.headers.get('origin')!==origin||new URL(request.url).origin!==origin)return error(403,'送信元を確認できませんでした。');
  let input,payload;try{input=await readBody(request);if(input.websiteTrap)return error(400,'入力内容をご確認ください。');payload=validateInquiry(input);}catch(e){if(e.message==='BODY_SIZE')return error(413,'入力内容が長すぎます。');if(e.message==='CONTENT_TYPE')return error(415,'入力形式をご確認ください。');return error(400,e instanceof SyntaxError?'入力形式をご確認ください。':e.message);}
  try{
    const ip=request.headers.get('cf-connecting-ip')||'unknown';
@@ -45,9 +45,9 @@ export async function handleInquiry(request,env,context={},dependencies={}){
    const limit=await env.DB.prepare('INSERT INTO inquiry_limits (client_hash, window, attempts) VALUES (?, ?, 1) ON CONFLICT(client_hash, window) DO UPDATE SET attempts = attempts + 1 RETURNING attempts').bind(client,window).first();
    if(limit.attempts>10)return error(429,'送信回数が多くなっています。しばらくしてからお試しください。');
    const token=typeof input.turnstileToken==='string'?input.turnstileToken:'';if(!token||token.length>2048)return error(400,'送信前の確認を完了してください。');
-   const verification=await fetcher('https://challenges.cloudflare.com/turnstile/v0/siteverify',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({secret:env.TURNSTILE_SECRET_KEY,response:token,remoteip:ip})});
+   const verification=await fetcher('https://challenges.cloudflare.com/turnstile/v0/siteverify',{method:'POST',signal:AbortSignal.timeout(10000),headers:{'Content-Type':'application/json'},body:JSON.stringify({secret:env.TURNSTILE_SECRET_KEY,response:token,remoteip:ip})});
    if(!verification.ok)return error(503,'確認サービスに接続できませんでした。再度お試しください。');
-   const result=await verification.json();if(!result.success||result.hostname!==new URL(origin).hostname||result.action!=='inquiry')return error(400,'送信前の確認をやり直してください。');
+   const result=await verification.json();if(result.success!==true||result.hostname!==new URL(origin).hostname||result.action!=='inquiry')return error(400,'送信前の確認をやり直してください。');
    const inquiryId=`TB-${crypto.randomUUID()}`;const now=new Date().toISOString();
    const inserted=await env.DB.prepare('INSERT INTO inquiries (inquiry_id, submission_id, payload, created_at, status, notification_status, notification_attempts, next_retry_at) VALUES (?, ?, ?, ?, ?, ?, 0, ?) ON CONFLICT(submission_id) DO NOTHING RETURNING inquiry_id').bind(inquiryId,payload.submissionId,JSON.stringify(payload),now,'new','pending',now).first();
    if(!inserted){const existing=await env.DB.prepare('SELECT inquiry_id FROM inquiries WHERE submission_id = ?').bind(payload.submissionId).first();return reply(200,{inquiryId:existing.inquiry_id,deduplicated:true});}

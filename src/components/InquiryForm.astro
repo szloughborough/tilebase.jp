@@ -5,7 +5,7 @@ const {type}=Astro.props;
 const preview=site.stage!=='production';
 ---
 <section class="inquiry-section" id="inquiry">
-  <div class="form-intro"><p class="eyebrow">{type==='sample'?'SAMPLE INQUIRY':type==='quote'?'BUSINESS INQUIRY':'GET IN TOUCH'}</p><h2>{type==='sample'?'サンプルのご相談':type==='quote'?'見積・企画のご相談':'お問い合わせ'}</h2><p>まずは製品と用途をお知らせください。数量や仕様が未定の場合も記入できます。</p>{preview&&<p class="form-preview">確認用サイトのため、入力内容は送信されません。下書きをファイルで保存できます。</p>}</div>
+  <div class="form-intro"><p class="eyebrow">{type==='sample'?'SAMPLE INQUIRY':type==='quote'?'BUSINESS INQUIRY':'GET IN TOUCH'}</p><h2>{type==='sample'?'サンプルのご相談':type==='quote'?'見積・企画のご相談':'お問い合わせ'}</h2><p>まずは製品と用途をお知らせください。数量や仕様が未定の場合も記入できます。</p>{preview&&<p class="form-preview">オンライン受付は準備中です。現在は入力内容を送信できません。下書きを端末に保存できます。</p>}</div>
   <form data-clarity-mask="true" class="inquiry-form" data-type={type} data-preview={String(preview)} data-turnstile-key={site.turnstile}>
     <input name="websiteTrap" tabindex="-1" autocomplete="off" class="honeypot" aria-hidden="true" />
     <div class="form-grid">

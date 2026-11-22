@@ -1,6 +1,7 @@
 declare global {interface Window {gtag?:(...args:unknown[])=>void;clarity?:((...args:unknown[])=>void)&{q?:unknown[][]};dataLayer?:Record<string,unknown>[]}}
 export function setupAnalytics(){
- const banner=document.querySelector<HTMLElement>('[data-analytics-consent]');if(!banner||banner.dataset.enabled!=='true')return;
+ const banner=document.querySelector<HTMLElement>('[data-analytics-consent]');
+ if(!banner||banner.dataset.enabled!=='true'||location.hostname!==banner.dataset.hostname){document.querySelector<HTMLElement>('[data-analytics-settings]')?.setAttribute('hidden','');return;}
  const key='tilebase-analytics-v1';let started=false;
  const get=()=>{try{const stored=JSON.parse(localStorage.getItem(key)||'null');return stored&&Date.now()-stored.at<180*86400000?stored.choice:null;}catch{return null;}};
  const set=(choice:string)=>{try{localStorage.setItem(key,JSON.stringify({choice,at:Date.now()}));}catch{}};
@@ -8,7 +9,8 @@ export function setupAnalytics(){
  const start=()=>{if(started)return;started=true;
   window.dataLayer=window.dataLayer||[];window.gtag=function(){window.dataLayer!.push(arguments as unknown as Record<string,unknown>);};
   window.gtag('consent','default',{analytics_storage:'granted',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied'});
-  window.gtag('js',new Date());window.gtag('config','G-HFRW01HH6E',{page_location:location.origin+location.pathname,allow_google_signals:false,allow_ad_personalization_signals:false});
+  let referrer='';try{const url=new URL(document.referrer);referrer=url.origin+url.pathname;}catch{}
+  window.gtag('js',new Date());window.gtag('config','G-HFRW01HH6E',{page_location:location.origin+location.pathname,page_referrer:referrer,allow_google_signals:false,allow_ad_personalization_signals:false});
   load('https://www.googletagmanager.com/gtag/js?id=G-HFRW01HH6E');
   const clarity=(...args:unknown[])=>{(clarity.q=clarity.q||[]).push(args);};clarity.q=[] as unknown[][];window.clarity=clarity;
   clarity('consentv2',{analytics_Storage:'granted',ad_Storage:'denied'});load('https://www.clarity.ms/tag/yviuathbm8');

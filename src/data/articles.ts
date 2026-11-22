@@ -47,3 +47,10 @@ const b2bLinks:Record<string,[string,string][]>={
 'sourcing-oem/floor-tile-oem-process':[['/blog/sourcing-oem/pb-tile-repeat-order-version-control/','量産後の追加発注と変更管理を確認する']]
 };
 for(const a of articles){const s=a.sections.at(-1);if(s&&b2bLinks[a.slug])s.links=[...(s.links||[]),...b2bLinks[a.slug]];}
+
+const searchLandingLinks:Record<string,[string,string][]>= {
+ 'product-selection/what-is-floor-tile':[['/products/floor-tiles/wood-look/','木目調フロアタイルの選定条件'],['/products/floor-tiles/stone-look/','石目調フロアタイルの選定条件']],
+ 'installation-comparison/floor-tile-vs-cushion-floor':[['/products/floor-tiles/peel-and-stick/','粘着式フロアタイルの下地と施工条件']],
+ 'technical/how-to-remove-tile-stickers':[['/products/wall-tiles/kitchen/','キッチンでの使用場所と下地確認'],['/blog/technical/tile-sticker-water-heat-conditions/','水・熱・継ぎ目の使用条件']],
+};
+for(const article of articles)for(const link of searchLandingLinks[article.slug]||[])if(!article.links.some(([href])=>href===link[0]))article.links.push(link);

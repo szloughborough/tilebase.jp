@@ -36,3 +36,7 @@ articleVisuals.push(
 {cover:scene('TB-F-051','販売先と品揃えを検討するストーン調の空間'),images:[detail('TB-F-051','品揃えの候補として比較するストーン柄'),detail('TB-F-044','採用する役割を確認したい別配色の候補')]},
 {cover:scene('TB-W-001','追加発注時に承認資料と照合する壁面デザインのイメージ'),images:[detail('TB-W-001','承認見本と対象品番を照合する参考デザイン'),detail('TB-W-003','包装や仕様の版を分けて管理する候補デザイン')]}
 );
+articleVisuals.push(
+ {cover:detail('TB-F-039','Tilebaseの木目柄サンプル。Pタイルの製品写真ではありません'),images:[detail('TB-F-039','Tilebase掲載の木目柄候補'),detail('TB-F-046','構造と使用条件を別に確認する石目柄候補')]},
+ {cover:detail('TB-F-046','Tilebaseの石目柄サンプル。オフィスでの適合や施工実績を示す写真ではありません'),images:[detail('TB-F-046','使用区画と仕様を照合する参考デザイン'),detail('TB-F-039','色と柄を実物で確認する木目柄候補')]}
+);

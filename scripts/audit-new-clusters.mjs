@@ -1,7 +1,8 @@
 import {readFileSync,existsSync,writeFileSync} from 'node:fs';
 const read=p=>JSON.parse(readFileSync(p,'utf8').replace(/^\uFEFF/,''));
-const articles=read('src/data/planned-cluster-articles.json'),ownership=read('src/data/cluster-keyword-ownership.json'),evidence=read('src/data/cluster-editorial-evidence.json');
-const errors=[],queries=new Map(),normalize=s=>s.replace(/\s/g,'').normalize('NFKC'),results=[];
+const articles=[...read('src/data/planned-cluster-articles.json'),...read('src/data/search-intent-articles.json')],ownership=read('src/data/cluster-keyword-ownership.json'),evidence=read('src/data/cluster-editorial-evidence.json');
+const errors=[],queries=new Map(),normalize=s=>s.replace(/\s/g,'').normalize('NFKC').toLowerCase(),results=[];
+for(const owner of ownership)for(const query of [owner.primary,...(owner.aliases||[])]){const key=normalize(query);if(queries.has(key)&&queries.get(key)!==owner.url)errors.push(`duplicate assigned query: ${query}`);queries.set(key,owner.url);}
 for(const a of articles){const chars=[...a.sections.map(s=>s.text||'').join('').replace(/\s/g,'')].length;const file=`dist/blog/${a.slug}/index.html`;const html=readFileSync(file,'utf8');const o=ownership.find(x=>x.url===`/blog/${a.slug}/`),e=evidence.find(x=>x.slug===a.slug);
  if(chars<=1000)errors.push(`${a.slug}: only ${chars} body characters`);
  if(!o||!e)errors.push(`${a.slug}: missing mapping/evidence`);

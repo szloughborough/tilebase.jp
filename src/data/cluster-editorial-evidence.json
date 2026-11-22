@@ -96,5 +96,49 @@
       "alt": "前回資料、変更確認、受入照合、履歴更新をつなぐ追加発注の管理図",
       "caption": "追加発注で照合する情報の関係。色差の許容値や同一仕様を保証する図ではありません。"
     }
+  },
+  {
+    "slug": "installation-comparison/floor-tile-vs-p-tile",
+    "sources": [
+      [
+        "https://flooring.tajima.jp/category/22",
+        "田島ルーフィング公式：Pタイル分類"
+      ],
+      [
+        "https://flooring.tajima.jp/product/572",
+        "田島ルーフィング公式：ニューソフトン613-301の材質区分"
+      ],
+      [
+        "https://prtimes.jp/main/html/rd/p/000000002.000019890.html",
+        "田島ルーフィングの2017年公式発表：Pタイルという商品名の由来"
+      ],
+      [
+        "https://www.toli.co.jp/digital_catalog/flooring2024_2025/data/pdf/P248-P249.pdf",
+        "東リ2024–2025年資料：特定のコンポジションビニル床タイルの構造・工法例"
+      ]
+    ],
+    "diagram": {
+      "src": "/images/journal-p-tile-comparison.svg",
+      "alt": "名称、構造、固定方法、使用条件を分けて床材を比較する四つの観点",
+      "caption": "比較する情報の整理図。材料構成や厚みを一律に分類する図ではありません。"
+    }
+  },
+  {
+    "slug": "product-selection/office-floor-tile-checklist",
+    "sources": [
+      [
+        "https://contents.sangetsu.co.jp/digital_book/floortile23/book/pageindices/index145.html",
+        "サンゲツ公式見本帳：選択・施工・キャスターなどの製品別注意事項"
+      ],
+      [
+        "https://contents.sangetsu.co.jp/doc/technical-data/施工要領書_フロアタイル_1.pdf",
+        "サンゲツ公式施工要領書：下地・施工工程・養生の確認例"
+      ]
+    ],
+    "diagram": {
+      "src": "/images/journal-office-checklist.svg",
+      "alt": "区画の記録、荷重と下地、資料と評価条件、採用判断の順に進める確認手順",
+      "caption": "法人向けの確認手順。適合試験の結果や採用済みの施工例を示すものではありません。"
+    }
   }
 ]

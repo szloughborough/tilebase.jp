@@ -71,5 +71,51 @@
     "task": "量産後の再発注における版と見本の照合",
     "avoid": "初回OEM工程・AI入稿・サンプル評価自体と分離",
     "parent": "/oem/"
+  },
+  {
+    "url": "/blog/installation-comparison/floor-tile-vs-p-tile/",
+    "primary": "フロアタイル Pタイル 違い",
+    "aliases": [
+      "フロアタイル pタイル 違い",
+      "Pタイル フロアタイル 比較"
+    ],
+    "task": "名称・構造・固定方式・見積条件の比較",
+    "avoid": "フロアタイル全般の定義、クッションフロア比較、商品一覧を複製しない",
+    "parent": "/products/floor-tiles/"
+  },
+  {
+    "url": "/blog/product-selection/office-floor-tile-checklist/",
+    "primary": "オフィス フロアタイル 選び方",
+    "aliases": [
+      "フロアタイル 事務所 床",
+      "フロアタイル オフィス",
+      "フロアタイル 商業施設 選定"
+    ],
+    "task": "土足・キャスター・荷重・下地から採用前評価を整理",
+    "avoid": "オフィス適合や商業施設の施工実績を未検証のまま主張しない",
+    "parent": "/products/floor-tiles/"
+  },
+  {
+    "url": "/blog/product-selection/what-is-floor-tile/",
+    "primary": "フロアタイル とは",
+    "aliases": [
+      "フロアタイル 種類",
+      "フロアタイル 選び方",
+      "フロアタイル 厚み"
+    ],
+    "task": "定義・種類と一般的な選定順序、総厚と表面層の区別",
+    "avoid": "Pタイル比較とオフィス固有の評価を本文の主題にしない。仕様ページは品番別数値の参照先。",
+    "parent": "/products/floor-tiles/"
+  },
+  {
+    "url": "/blog/installation-comparison/lay-only-vs-peel-and-stick/",
+    "primary": "フロアタイル 置くだけ 貼るだけ 違い",
+    "aliases": [
+      "フロアタイル 置くだけ デメリット",
+      "置くだけ 粘着式 フロアタイル 比較"
+    ],
+    "task": "固定方式・下地・端部・撤去条件の比較",
+    "avoid": "Pタイルの名称分類やクッションフロアの形状比較とは分ける",
+    "parent": "/products/floor-tiles/"
   }
 ]

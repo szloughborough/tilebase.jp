@@ -1,4 +1,6 @@
 import plannedClusters from './planned-cluster-articles.json';
+import searchIntentArticles from './search-intent-articles.json';
+import {applySearchIntentUpdates} from './search-intent-updates';
 import clusterEvidence from './cluster-editorial-evidence.json';
 import {topicOwner} from './pillar-structure';
 import additionalArticles from './additional-articles.json';
@@ -21,7 +23,9 @@ for(const article of articles){const expanded=deepArticles[article.slug];if(expa
 
 articles.push(...additionalArticles as Article[]);
 articles.push(...plannedClusters as Article[]);
+articles.push(...searchIntentArticles as Article[]);
 for(const article of articles){const evidence=clusterEvidence.find(e=>e.slug===article.slug);if(evidence)Object.assign(article,evidence);}
+applySearchIntentUpdates(articles);
 const backlinks:Record<string,[string,string][]>= {
 'product-selection/what-is-floor-tile':[['/blog/product-selection/floor-tile-20-vs-30/','20cmと30cmの選び方']],
 'sourcing-oem/floor-tile-oem-process':[['/blog/sourcing-oem/ai-cmyk-artwork-guide/','AI・CMYK入稿の準備']],
